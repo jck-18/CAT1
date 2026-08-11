@@ -373,16 +373,16 @@ def find_adapter_registry_key(adapter_description: str,
 
 
 def driver_supports_network_address(subkey: str) -> bool:
-    """Whether this adapter's driver even registers NetworkAddress as a
-    configurable advanced property (Ndi\\Params\\NetworkAddress under its
-    class subkey - the same place that populates Device Manager's Advanced
-    tab). If this is absent, the driver's init code was never written to look
-    at the NetworkAddress value at all: no restart, however deep, will ever
-    make it apply an override, because there is no code path that reads it.
-    Some newer OEM Wi-Fi 6/6E driver packages ship without this property even
-    though the reference chipset driver supports it - a real, documented
-    hardening trend, not a bug in this script. SMAC and every other
-    registry-based spoofing tool hit the identical wall on such a driver."""
+    """Whether this adapter's driver registers NetworkAddress as a configurable
+    advanced property (Ndi\\Params\\NetworkAddress under its class subkey).
+
+    IMPORTANT: this only tells you whether "Network Address" appears in Device
+    Manager's Advanced tab - i.e. the GUI registration. It is NOT a reliable
+    predictor of whether the driver honours a NetworkAddress registry override:
+    that's a separate NDIS-layer behaviour, and drivers exist that honour the
+    value without exposing the GUI property (and vice versa). Use this only as
+    an informational hint, never as a gate that skips the actual attempt - the
+    empirical before/after MAC comparison is the only real answer."""
     if not winreg:
         return False
     path = f"{NIC_CLASS_KEY}\\{subkey}\\Ndi\\Params\\NetworkAddress"
@@ -522,18 +522,18 @@ def spoof_mac(interface: str, new_mac: str | None = None) -> dict:
             f"({target.get('adapter_description')}) - is this a standard "
             f"Windows NIC driver?")
 
-    if not driver_supports_network_address(subkey):
-        warn(f"the driver for {target['interface']!r} "
-             f"({target.get('adapter_description')}) does not register "
-             f"NetworkAddress as a configurable property at all "
-             f"(no Ndi\\Params\\NetworkAddress key). No restart will fix this "
-             f"- the driver's init code has no path that reads that value. "
-             f"This is a driver-level restriction, not a bug here: SMAC and "
-             f"every other registry-based MAC spoofer hit the same wall on "
-             f"this adapter. Try a different adapter (--interface Ethernet), "
-             f"or a different laptop.")
-        return {"changed": False, "old_mac": original_mac, "new_mac": None,
-                "adapter": target, "unsupported": True}
+    # Note, don't gate: the absence of an Ndi\Params\NetworkAddress entry only
+    # means the driver doesn't expose "Network Address" in Device Manager's
+    # Advanced tab (a GUI registration). It does NOT prove the driver ignores
+    # the NetworkAddress registry value on init - that's a separate NDIS-layer
+    # mechanism many drivers honour regardless. So we always attempt and let
+    # the before/after comparison be the source of truth.
+    gui_property = driver_supports_network_address(subkey)
+    if not gui_property:
+        info(f"note: {target['interface']!r} does not expose a 'Network "
+             f"Address' advanced property (Device Manager GUI). That doesn't "
+             f"decide whether the driver honours the registry override, so "
+             f"attempting anyway.")
 
     step(f"Writing NetworkAddress={mac_hex} to registry key {subkey}")
     if not set_registry_mac(subkey, mac_hex):
@@ -544,11 +544,17 @@ def spoof_mac(interface: str, new_mac: str | None = None) -> dict:
     after = _wait_for_adapter(target["interface"]) or target
 
     changed = normalise_mac(after.get("mac")) != normalise_mac(original_mac)
-    (ok if changed else warn)(
-        f"{'spoofed' if changed else 'DID NOT CHANGE'}: "
-        f"{original_mac} -> {after.get('mac')}")
+    if changed:
+        ok(f"spoofed: {original_mac} -> {after.get('mac')}")
+    else:
+        warn(f"DID NOT CHANGE: {original_mac} -> {after.get('mac')}")
+        warn("the registry write took but the driver did not apply it after a "
+             "PnP restart. This is common on Wi-Fi (802.11 ties association to "
+             "the MAC, and many Wi-Fi drivers - especially newer 6/6E ones - "
+             "refuse a registry override); wired Ethernet usually accepts it. "
+             "Try 'spoof --interface Ethernet', or another laptop.")
     return {"changed": changed, "old_mac": original_mac, "new_mac": after.get("mac"),
-            "adapter": after}
+            "adapter": after, "gui_property": gui_property}
 
 
 def restore_mac(interface: str) -> dict:

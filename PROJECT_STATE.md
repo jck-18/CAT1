@@ -168,6 +168,37 @@ cleared. `restore` will clear it correctly regardless of its value, but run
 to start from a known-clean state, and keep an eye out for the same thing on
 Jay's or Elan's laptops if this script is ever run there.
 
+### 3.8 Registry MAC spoof: what actually works, and a gate bug I corrected (2026-08-12)
+Live testing surfaced the real behaviour, which differs from §3.7's optimism:
+
+- **Jayant's Wi-Fi (Realtek RTL8852BE): does NOT spoof.** The registry write
+  persists and a full PnP device restart (`Disable-PnpDevice`/`Enable-PnpDevice`,
+  stronger than `netsh` admin toggle) runs cleanly, but the adapter keeps its
+  hardware MAC. Empirically confirmed - the driver ignores the override. Common
+  on Wi-Fi (802.11 ties association to the MAC).
+- **Jayant's Ethernet (Realtek PCIe GbE): registers the property; untested
+  live** (no wired link available in the hotspot setup).
+
+**A reasoning error I made and then fixed:** I briefly added a hard gate that
+refused to attempt the spoof when the adapter had no `Ndi\Params\NetworkAddress`
+key, claiming that proved the driver ignores the override. That was wrong -
+`Ndi\Params\NetworkAddress` only controls the Device Manager **Advanced-tab GUI
+entry**, which is a *separate* thing from whether the driver honours the
+registry value at init (an NDIS-layer behaviour). The gate's real-world effect
+was bad: on Elan's laptop it printed the same refusal and **never actually
+tried**, which looked like "his fails too" but was just my gate firing. Removed
+the gate - `spoof_mac()` now always attempts and uses the before/after MAC
+comparison as the sole source of truth, with the GUI-property absence demoted
+to an informational note. `driver_supports_network_address()` remains only as
+that hint.
+
+**Where this leaves the demo (open):** need an adapter that actually applies the
+override. Candidates in order: Elan's RTL8821CE Wi-Fi (older Wi-Fi 5 chipset,
+now being tested *with the gate removed* - a real attempt, not a pre-refusal);
+any laptop's wired Ethernet; failing all of those, present the driver
+restriction itself as the Phase 3 finding (modern Wi-Fi drivers increasingly
+refuse registry MAC override) plus a recording from whichever adapter works.
+
 ---
 
 ## 4. The real network — the laptops are fixed, the addressing is not
