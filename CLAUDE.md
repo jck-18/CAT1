@@ -9,7 +9,7 @@ A hands-on **local network security assessment** for a mid-sem assessment (40 ma
 ## Team & environment
 
 - **3-person group**, 3 Windows laptops, all on the **same network** (one WiFi/hotspot or switch). Each laptop is both a host to be discovered and a working node.
-- OS: Windows (SMAC is Windows-only — this is fine).
+- OS: Windows (Phase 3's registry-based MAC spoof is Windows-only — this is fine).
 - Everyone clones the whole repo but works only in their own phase folder.
 
 ## Tech stack
@@ -21,7 +21,7 @@ Python is the orchestration layer over industry-standard tools. Wrap, don't rein
 | Network scanning | Nmap, driven by `python-nmap` |
 | Packet capture | Wireshark / TShark |
 | Packet analysis | `pyshark` (parses `.pcap`) |
-| MAC spoofing | SMAC (GUI, Windows) — orchestrated/verified via `subprocess` |
+| MAC spoofing | Windows registry (`NetworkAddress` override) + adapter restart, via `subprocess`/`winreg` — no external tool |
 | Data / reporting | `pandas`, `matplotlib`, `openpyxl` |
 | (optional) traffic gen | `scapy` |
 
@@ -45,7 +45,7 @@ network-security-assessment/
 │   ├── capture.py             # tshark capture driver
 │   ├── analyze.py             # pyshark pcap parsing
 │   └── outputs/               # packets.csv, protocol_stats.json → consumed by phase4
-├── phase3_spoofing/           # MEMBER 3 — SMAC
+├── phase3_spoofing/           # MEMBER 3 — registry-based MAC spoof
 │   ├── README.md
 │   ├── mac_control.py         # subprocess: verify MAC (getmac/ipconfig), orchestrate
 │   └── outputs/               # before/after MAC log
@@ -62,12 +62,12 @@ network-security-assessment/
 
 - **Member 1 — Discovery & Scanning (Phase 1):** Nmap host discovery, OS detection, TCP port scan, service + version detection. Owns `phase1_discovery/`. Deliverable: table of active hosts → IPs → open ports → services → OS.
 - **Member 2 — Capture & Analysis (Phase 2):** Generate traffic (browse, download, DNS lookup, ping) while capturing; parse the pcap for src/dst IP, protocol, packet length, TCP three-way handshake, DNS lookup. Owns `phase2_capture/`.
-- **Member 3 — Privacy + Security Analysis + Reporting (Phases 3 & 4):** SMAC spoofing demo (view → change → restart adapter → verify → restore); then synthesize Phase 1 + 2 outputs into open-port/insecure-protocol findings, firewall rules, hardening recs; owns the reporting layer and slide consolidation. Owns `phase3_spoofing/` and `phase4_analysis/`.
+- **Member 3 — Privacy + Security Analysis + Reporting (Phases 3 & 4):** automated MAC spoofing demo (view → spoof via registry + restart → verify → restore), no manual tool to click through; then synthesize Phase 1 + 2 outputs into open-port/insecure-protocol findings, firewall rules, hardening recs; owns the reporting layer and slide consolidation. Owns `phase3_spoofing/` and `phase4_analysis/`.
 
 ## Sequencing / dependencies
 
 - Phases 1 and 2 run in parallel and **produce data**.
-- Phase 4 **consumes** Phase 1 + Phase 2 outputs, so it lands last. Member 3 is not idle meanwhile — SMAC, the reporting scaffold, and slide template can all be built in parallel.
+- Phase 4 **consumes** Phase 1 + Phase 2 outputs, so it lands last. Member 3 is not idle meanwhile — the Phase 3 spoof, the reporting scaffold, and slide template can all be built in parallel.
 - Shared `SETUP.md` is a hard prerequisite for everyone.
 
 ## Data contract (so phases interoperate)
@@ -89,7 +89,7 @@ Keep these stable so Phase 4 can consume Phases 1 & 2 without rework.
 
 ## Presentation cohesion trick
 
-Have Member 3 spoof their MAC with SMAC, then Member 1 re-run Nmap host discovery live — the laptop reappears with a different MAC. This visually links Phase 3 back to Phase 1 and makes the whole thing read as one system.
+Have Member 3 run the automated spoof (`python phase3_spoofing/mac_control.py demo`), then Member 1 re-run Nmap host discovery live — the laptop reappears with a different MAC. Because the spoof is scripted (registry write + adapter restart, no GUI to click through), the whole cycle takes seconds and nothing can go wrong mid-click in front of the room. This visually links Phase 3 back to Phase 1 and makes the whole thing read as one system.
 
 ## Working loop per phase
 

@@ -7,16 +7,15 @@ as one is broken.**
 
 ## What you install
 
-| What | How |
-|---|---|
-| SMAC | Free version from <https://www.klcconsulting.net/smac/>. Windows only, which is fine — we are all on Windows. |
-| Python packages | Nothing extra. This script is stdlib only. |
+Nothing extra. `mac_control.py` is Python standard library only — it spoofs by
+writing the adapter's `NetworkAddress` override directly into the Windows
+registry and restarting the adapter, then restores by deleting that value. This
+is the same mechanism third-party MAC-spoofing tools use under the hood; the
+script just skips the GUI in front of it, so the whole cycle runs unattended
+instead of needing someone to click through a tool live in front of the class.
 
-If SMAC is not at `C:\Program Files\SMAC\smac.exe`, set `SMAC_PATH` in
-`shared/config.py`.
-
-Also set `SPOOF_INTERFACE` in `shared/config.py` to your adapter name — run
-`python mac_control.py view` to see the exact names.
+You do need **Administrator**: writing to `HKLM` and restarting an adapter both
+require it.
 
 ## Before you automate anything: understand the layers
 
@@ -27,46 +26,55 @@ getmac /v
 ipconfig /all
 ```
 
-The **physical address** is burned into the network card, but Windows lets the
-driver override it — that override is all SMAC does. Meanwhile the **IP address**
+The **physical address** is burned into the network card, but Windows lets a
+registry value (`NetworkAddress`, under the adapter's driver key) override it —
+that's the entire mechanism, no more and no less. Meanwhile the **IP address**
 is assigned by DHCP and is a completely separate identity. Being clear about
 which layer you are changing (layer 2, not layer 3) is the difference between
 explaining this well and hand-waving.
 
-Then do one spoof by hand in the SMAC GUI so you know the click path before you
-are standing in front of the class.
+Set `SPOOF_INTERFACE` in `shared/config.py` to your adapter name — run
+`python mac_control.py view` to see the exact names.
 
 ## How to run it
 
-The main event is the guided demo, which walks the whole cycle and logs every
-stage:
+The main event is the automated demo, which walks the whole cycle and logs
+every stage, with no manual step in the middle:
 
 ```bash
 python mac_control.py demo
 ```
 
-It will: snapshot your real MAC → open SMAC and wait while you change it →
-restart the adapter → verify the change actually took → pause for the live Nmap
-re-scan → wait while you restore → verify you are back to the original.
+It will: snapshot your real MAC → write a new one to the registry and restart
+the adapter → verify the change actually took → pause for the live Nmap
+re-scan → clear the override and restart again → verify you are back to the
+original.
 
 | Command | What it does |
 |---|---|
 | `python mac_control.py view` | List adapters with their MACs and IPs |
-| `python mac_control.py demo` | **The presentation script.** Guided before → spoof → verify → restore |
+| `python mac_control.py demo` | **The presentation script.** Automated before → spoof → verify → restore |
+| `python mac_control.py spoof` | Just the spoof (registry write + restart), no prompts. `--mac AA-BB-CC-DD-EE-FF` to pick a specific address |
+| `python mac_control.py restore` | Just the restore (clear the override + restart), no prompts |
 | `python mac_control.py snapshot --stage before` | Record current state (stages: `before`, `after`, `restored`, `adhoc`) |
 | `python mac_control.py verify --expected AA-BB-CC-DD-EE-FF` | Check the adapter against an expected MAC |
-| `python mac_control.py restart-adapter` | Disable + re-enable the adapter (needs Administrator) |
-| `python mac_control.py launch-smac` | Just open SMAC |
+| `python mac_control.py restart-adapter` | Disable + re-enable the adapter (needs Administrator; asks to confirm unless `--yes`) |
 | `python mac_control.py report` | Print the before/after table from the log |
 
-**Run from an Administrator terminal.** SMAC needs it to write the driver
-setting, and `restart-adapter` needs it to call `netsh`.
+**Run from an Administrator terminal.** Everything above that touches the
+registry or restarts the adapter needs it; without elevation the script fails
+fast with a clear message instead of doing something halfway.
 
-### Picking a plausible MAC
+### The address it spoofs to
 
-Keep the first three octets (the OUI) from a real vendor — e.g. `00-1C-B3-xx-xx-xx`
-is Apple. A completely random address can look obviously fake to network gear,
-and part of the point is that a spoofed address blends in.
+If you don't pass `--mac`, the script generates a random address with the
+**locally-administered bit set** (the second hex digit of the first octet is
+2/6/A/E) and the multicast bit clear. That's not an arbitrary choice — it's the
+standard way to mark an address as *not* a real vendor's burned-in MAC, and
+it's the same convention Android/iOS/Windows Wi-Fi privacy features use for
+per-network random addresses. It also means you're not gambling on picking a
+fake vendor prefix that happens to collide with a real device on the network.
+Worth a sentence on the slide.
 
 ## What it produces
 
@@ -84,35 +92,52 @@ successful before→after change into a finding about MAC-based access control.
 
 This is the bit that ties the whole project together:
 
-1. You run `python mac_control.py demo` and change your MAC.
+1. You run `python mac_control.py demo` — it changes your MAC in a couple of
+   seconds, no clicking required.
 2. **Member 1 immediately re-runs** `python phase1_discovery/scan.py --discovery-only`.
 3. Your laptop shows up under a different hardware address — from Nmap's point
    of view, a device that was never there before.
-4. You restore, they re-scan, you are back.
+4. `demo` pauses right at this point waiting for Enter, so you control the
+   timing — restore happens the moment you continue.
 
 Have Member 1's command already typed into a terminal so it is one keypress.
-The demo script pauses and waits for exactly this.
+Since there's no GUI step to fumble, the whole handoff is just: run `demo`,
+wait for the pause, nod at Member 1, hit Enter.
 
 ## When it does not work
 
-**The MAC does not change.** Most common by far. In order: are you running SMAC
-as Administrator? Did the adapter actually restart (`python mac_control.py
-restart-adapter`)? Some Wi-Fi drivers — Intel ones especially — refuse spoofed
-addresses outright. If yours does, try the Ethernet adapter instead, or use a
-teammate's laptop for the demo and explain the driver restriction. That
-restriction is itself worth a sentence in the report.
+**"this needs an Administrator shell".** Re-open the terminal as Administrator
+— every registry write and adapter restart requires it, and the script checks
+this upfront rather than failing halfway through.
+
+**The MAC does not change.** Second most common cause after not being
+elevated: the driver refuses `NetworkAddress` overrides outright. Some Wi-Fi
+drivers — Intel ones especially — do this; Realtek and MediaTek generally
+accept it. If yours refuses, try the Ethernet adapter instead (`--interface
+Ethernet`), or use a teammate's laptop for the demo and explain the driver
+restriction. That restriction is itself worth a sentence in the report.
 
 **You lose network access after spoofing.** Expected for a few seconds while
-DHCP re-leases. If it persists, the new MAC may have been rejected — restore it
-in SMAC and restart the adapter.
+the adapter restarts and DHCP re-leases. `spoof_mac`/`restore_mac` poll for the
+adapter to come back rather than trusting a fixed delay, so the script itself
+waits this out; if it's still down after ~25s, something's wrong — check
+`ipconfig` directly.
 
 **`getmac` and `ipconfig` disagree.** The log records both when they differ.
-Usually means the adapter has not been restarted since the change, so the
-change has not taken effect yet.
+Usually means the adapter hasn't been restarted since a registry change, so it
+hasn't taken effect yet.
 
-**You cannot get back to the original.** In SMAC, click **Remove MAC** (not
-"update with the old value") — that clears the driver override entirely. Your
-real MAC is in `outputs/mac_log.json` under the `before` entry.
+**You cannot get back to the original.** Run `python mac_control.py restore` —
+it deletes the registry override outright (not "write back the old value"),
+which is the clean way back to the hardware MAC regardless of what's currently
+set. `python mac_control.py report` tells you plainly whether you're back.
+
+**Before you run anything on a laptop you haven't spoofed from before**, it's
+worth checking there isn't already a leftover override sitting on the
+adapter's registry key from an earlier tool or test — `mac_control.py view`
+shows the *live* MAC, which only reflects a pending override after a restart,
+so a stale value can be invisible until something restarts the adapter. If in
+doubt, run `restore` once before your first `demo` to start from a clean slate.
 
 ## Scope and ethics
 

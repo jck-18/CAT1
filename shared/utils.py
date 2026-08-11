@@ -195,8 +195,6 @@ def find_tool(name: str, configured: str | None = None) -> str | None:
         "nmap": [r"C:\Program Files (x86)\Nmap\nmap.exe", r"C:\Program Files\Nmap\nmap.exe"],
         "tshark": [r"C:\Program Files\Wireshark\tshark.exe",
                    r"C:\Program Files (x86)\Wireshark\tshark.exe"],
-        "smac": [r"C:\Program Files\SMAC\smac.exe",
-                 r"C:\Program Files (x86)\SMAC\smac.exe"],
     }
     for candidate in candidates.get(name.lower(), []):
         if Path(candidate).exists():

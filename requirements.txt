@@ -1,8 +1,9 @@
 # Network Security Assessment - Python dependencies
 # Install with:  pip install -r requirements.txt
 #
-# These are the Python wrappers only. The actual tools (Nmap, Wireshark/TShark,
-# SMAC) are separate installers - see shared/SETUP.md and each phase README.
+# These are the Python wrappers only. Nmap and Wireshark/TShark are separate
+# installers - see shared/SETUP.md and each phase README. Phase 3 needs no
+# separate tool: it spoofs via the registry + an adapter restart (stdlib only).
 
 # Phase 1 - drives the Nmap binary
 python-nmap>=0.7.1

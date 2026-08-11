@@ -7,8 +7,9 @@ A small Flask app that ties the four phases together in one screen:
     change - so when Member 1 re-runs discovery during the demo, the new host
     shows up here on its own.
   * Phases 3 & 4 can be DRIVEN from here (buttons), because those scripts need
-    only Python + SMAC, which live on this laptop. Each button runs the existing
-    phase script via subprocess - nothing is reimplemented.
+    only Python (Phase 3 spoofs via the registry, no external tool), which
+    lives on this laptop. Each button runs the existing phase script via
+    subprocess - nothing is reimplemented.
 
 This is a wrapper. It reads the data contract from CLAUDE.md and shells out to
 the phase scripts; it owns no assessment logic of its own.
@@ -219,6 +220,8 @@ def api_overview():
 # action id -> argv (relative to REPO_ROOT). Only these can be run.
 RUN_COMMANDS: dict[str, list[str]] = {
     "phase3:view":            [PYTHON, "phase3_spoofing/mac_control.py", "view"],
+    "phase3:spoof":           [PYTHON, "phase3_spoofing/mac_control.py", "spoof"],
+    "phase3:restore":         [PYTHON, "phase3_spoofing/mac_control.py", "restore"],
     "phase3:snapshot:before": [PYTHON, "phase3_spoofing/mac_control.py", "snapshot", "--stage", "before"],
     "phase3:snapshot:after":  [PYTHON, "phase3_spoofing/mac_control.py", "snapshot", "--stage", "after"],
     "phase3:snapshot:restored": [PYTHON, "phase3_spoofing/mac_control.py", "snapshot", "--stage", "restored"],
@@ -229,8 +232,10 @@ RUN_COMMANDS: dict[str, list[str]] = {
     "phase4:report":          [PYTHON, "phase4_analysis/report.py"],
 }
 
-# 'demo' is deliberately absent - it is interactive (it pauses for the operator
-# and for SMAC), so it belongs in a real terminal, not a web button.
+# 'demo' is deliberately absent - it still has one interactive pause (the
+# live-rescan handoff to Member 1), so it belongs in a real terminal, not a
+# web button. 'spoof' and 'restore' are the same underlying change with no
+# prompts at all, which is why those two are safe to expose here.
 
 
 @app.post("/api/run")
@@ -286,4 +291,6 @@ if __name__ == "__main__":
     print(f"\n  Network Security Assessment - dashboard")
     print(f"  open  http://127.0.0.1:{port}\n")
     # 127.0.0.1 only: this runs local tools and must not be network-reachable.
-    app.run(host="127.0.0.1", port=port, debug=False)
+    # threaded=True so the 5s poll keeps responding while a spoof/restore
+    # subprocess (up to ~25s, waiting for the adapter to come back) is running.
+    app.run(host="127.0.0.1", port=port, debug=False, threaded=True)

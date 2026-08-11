@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 - **Member 1:** Nmap (the installer includes the Npcap driver — accept it).
 - **Member 2:** Wireshark (includes TShark; accept the Npcap driver during install).
-- **Member 3:** SMAC (free version) for Phase 3; Phase 4 needs no extra tools beyond Python.
+- **Member 3:** nothing extra to install — Phase 3 spoofs the MAC via the Windows registry + an adapter restart (stdlib only), and Phase 4 needs no extra tools beyond Python. You do need an **Administrator** terminal for Phase 3, since it writes to `HKLM`.
 
 ## 6. Smoke test
 

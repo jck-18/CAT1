@@ -105,7 +105,8 @@ material.
 
 ## The Phase 3 tie-in
 
-During the presentation, Member 3 spoofs their MAC with SMAC and you re-run:
+During the presentation, Member 3 runs the automated spoof (registry write +
+adapter restart, a few seconds, no GUI) and you re-run:
 
 ```bash
 python scan.py --discovery-only

@@ -69,15 +69,17 @@ Rehearse it once end to end.
 
 1. Member 1 has `python phase1_discovery/scan.py --discovery-only` typed and
    ready. Run it — note the MAC on Member 3's laptop.
-2. Member 3 runs `python phase3_spoofing/mac_control.py demo` and changes the
-   MAC in SMAC.
+2. Member 3 runs `python phase3_spoofing/mac_control.py demo` — it spoofs via
+   a registry write + adapter restart automatically, no GUI, done in a few
+   seconds, then pauses.
 3. Member 1 hits Enter again. **The laptop reappears under a different hardware
    address** — a device Nmap has never seen.
-4. Member 3 restores. Member 1 re-scans. Back to normal.
+4. Member 3 continues past the pause — `demo` restores automatically. Member 1
+   re-scans. Back to normal.
 
-**Have a fallback.** Some Wi-Fi drivers refuse spoofed addresses. If yours does,
-have a screen recording of a successful run ready, and explain the driver
-restriction — that is a legitimate finding, not a failure.
+**Have a fallback.** Some Wi-Fi drivers refuse `NetworkAddress` overrides. If
+yours does, have a screen recording of a successful run ready, and explain the
+driver restriction — that is a legitimate finding, not a failure.
 
 ---
 

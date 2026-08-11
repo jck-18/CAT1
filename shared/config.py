@@ -103,9 +103,10 @@ SPOOF_INTERFACE: str = "Wi-Fi"
 
 # Tool locations. None -> look on PATH, which is right if you accepted the
 # installer defaults. Set an explicit path only if a tool is not on PATH.
+# (Phase 3 needs no external tool - it spoofs via the registry + adapter
+# restart, no separate install.)
 NMAP_PATH: str | None = str(REPO_ROOT / "nmap.exe")
 TSHARK_PATH: str | None = None
-SMAC_PATH: str | None = r"C:\Program Files\SMAC\smac.exe"
 
 # ==========================================================================
 # END EDIT ME
@@ -218,7 +219,6 @@ def tool_path(tool: str) -> str | None:
     mapping = {
         "nmap": _env("NMAP_PATH") or NMAP_PATH,
         "tshark": _env("TSHARK_PATH") or TSHARK_PATH,
-        "smac": _env("SMAC_PATH") or SMAC_PATH,
     }
     return mapping.get(tool.lower())
 
@@ -287,7 +287,6 @@ def summary() -> str:
         f"spoof interface   : {spoof_interface()}",
         f"nmap path         : {tool_path('nmap') or '(PATH)'}",
         f"tshark path       : {tool_path('tshark') or '(PATH)'}",
-        f"smac path         : {tool_path('smac') or '(not set)'}",
     ]
     known = known_hosts()
     lines.append(f"known team hosts  : {len(known)} of {len(HOSTS)} filled in")

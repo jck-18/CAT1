@@ -9,8 +9,8 @@ assessment logic.
   auto-refreshes when those files change — so when Member 1 re-runs discovery
   during the demo, the new host appears here on its own (the panel flashes).
 - **Phases 3 & 4** can be *run* from here (buttons), because those scripts need
-  only Python + SMAC, both on this laptop. Each button shells out to the real
-  phase script; nothing is reimplemented.
+  only Python — Phase 3 spoofs via the registry, no external tool. Each button
+  shells out to the real phase script; nothing is reimplemented.
 
 ## Install
 
@@ -60,7 +60,7 @@ inputs, so you can't mistake it for the real assessment.
 | Overview | all four output files | — (KPIs + freshness table, auto-polled) |
 | Phase 1 · Discovery | `phase1_discovery/outputs/hosts.json` | read-only |
 | Phase 2 · Capture | `phase2_capture/outputs/protocol_stats.json` | read-only |
-| Phase 3 · Spoofing | `phase3_spoofing/outputs/mac_log.json` | View adapters · Snapshot before/after/restored · Verify |
+| Phase 3 · Spoofing | `phase3_spoofing/outputs/mac_log.json` | View adapters · **Spoof MAC** · **Restore MAC** · Snapshot before/after/restored · Verify |
 | Phase 4 · Findings | `phase4_analysis/outputs/findings.json` + `firewall_rules.txt` | Re-analyze · Re-analyze (sample) · Build report |
 
 Team laptops are labelled by MAC (drift-proof — see `shared/config.py`), so the
@@ -71,15 +71,18 @@ right owner shows even after the hotspot reshuffles IPs.
 1. Launch the dashboard on your laptop, project it.
 2. Members 1 & 2 drop their `hosts.json` / `protocol_stats.json` into their
    `outputs/` folders (or run their scripts there) — the panels fill in live.
-3. Run the Phase 3 spoof (`python phase3_spoofing/mac_control.py demo` in a
-   terminal for the guided flow, or the Snapshot buttons here), then have
-   Member 1 re-run `scan.py --discovery-only` — the Phase 1 panel flashes as the
-   new MAC arrives.
+3. Click **Spoof MAC** on the Phase 3 panel (registry write + adapter restart,
+   a few seconds, no prompts), then have Member 1 re-run
+   `scan.py --discovery-only` — the Phase 1 panel flashes as the new MAC
+   arrives. Click **Restore MAC** once they've seen it.
 4. Hit **Re-analyze** then **Build report** to regenerate findings + `report.xlsx`
    from whatever data is present.
 
-The guided `mac_control.py demo` is intentionally **not** a button — it pauses
-for you and for SMAC, so it belongs in a terminal.
+The guided `mac_control.py demo` (run in a terminal, not a button) does the
+same spoof/restore but walks through numbered steps and pauses once for the
+live-rescan handoff — useful for rehearsing solo. The dashboard's Spoof/Restore
+buttons are the same underlying change with zero prompts, meant for the actual
+presentation moment where Member 1 is already mid-flow.
 
 ## How it's built (offline-safe)
 

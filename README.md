@@ -1,6 +1,6 @@
 # Network Security Assessment
 
-A local network security assessment built for a mid-sem group project (40 marks, 4 phases). Python orchestrates Nmap, Wireshark/TShark, and SMAC to discover hosts, capture and analyze traffic, test MAC spoofing, and produce a hardening report.
+A local network security assessment built for a mid-sem group project (40 marks, 4 phases). Python orchestrates Nmap and Wireshark/TShark to discover hosts and capture and analyze traffic, spoofs a MAC via the Windows registry, and produces a hardening report.
 
 ## Who owns what
 
@@ -8,7 +8,7 @@ A local network security assessment built for a mid-sem group project (40 marks,
 |---|---|---|
 | `phase1_discovery/` | Member 1 | Network discovery & port scanning (Nmap) |
 | `phase2_capture/` | Member 2 | Packet capture & analysis (Wireshark/PyShark) |
-| `phase3_spoofing/` | Member 3 | MAC spoofing (SMAC) |
+| `phase3_spoofing/` | Member 3 | MAC spoofing (registry + adapter restart, automated) |
 | `phase4_analysis/` | Member 3 | Security analysis & reporting |
 | `shared/` | All | Config, setup, shared helpers |
 

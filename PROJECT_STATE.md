@@ -52,11 +52,13 @@ clone needs is in place; the phases just need real data run through them.
 - All three dependency-missing paths (nmap, pyshark, tshark) fail with
   actionable messages, not tracebacks.
 
-**NOT verified (no binaries on the build machine):**
+**NOT verified (no binaries on the build machine / needs elevation):**
 - `phase1_discovery/scan.py` beyond `py_compile` — needs Nmap + `python-nmap`.
 - `phase2_capture/*.py` beyond `py_compile` — needs Wireshark/TShark + pyshark.
-- Phase 3's actual **spoof** (needs SMAC + an Administrator shell + a driver
-  that accepts a spoofed MAC). Only the read/verify/log path is proven.
+- Phase 3's actual **spoof/restore** (needs an Administrator shell + a driver
+  that accepts a `NetworkAddress` override). The read/verify/log path and the
+  registry-key lookup are proven (see §3.7); the write itself was not run on
+  the build machine since it needs elevation and changes live adapter state.
 
 Implication: the first real runs of Phases 1 and 2 are also their first true
 tests. Budget time for that.
@@ -115,6 +117,56 @@ sources of truth:
   matching by MAC and labels as 'unknown'. That is correct — the MAC changed.
   Verified across a simulated reshuffle (new IPs + mixed MAC formats all match;
   spoofed MAC and strangers resolve to unknown).
+
+### 3.7 Phase 3 rewritten to spoof via registry, not SMAC (2026-08-12)
+`phase3_spoofing/mac_control.py` no longer launches SMAC and waits for a
+manual GUI click-through. It now writes the adapter's `NetworkAddress`
+override directly into `HKLM\SYSTEM\CurrentControlSet\Control\Class\
+{4d36e972-...}\<N>\NetworkAddress` and restarts the adapter via the existing
+`netsh` restart path - the same mechanism SMAC (and most Windows MAC
+spoofers) use, just without the GUI layer on top. Restore deletes that
+registry value outright rather than writing back the original, which is the
+clean way to fall back to the hardware MAC regardless of what's currently set.
+
+**Why:** a live demo that depends on someone clicking the right thing in a
+third-party GUI in front of an audience has one more failure mode than it
+needs. The registry write is deterministic, scriptable, and (per a read-only
+check on Jayant's Realtek RTL8852BE) reliably finds the adapter's registry
+key. `demo` now runs the whole before → spoof → verify → restore cycle
+unattended except for one deliberate pause - the live-rescan handoff to
+Member 1, which is presentation choreography, not a manual spoofing step, and
+is skippable with `--yes`.
+
+**What changed in the output/contract:** nothing. `mac_log.json`/`mac_log.csv`
+keep the exact same schema (`stage/timestamp/host/interface/mac/ipv4/note`),
+so `analyze_security.py`, `report.py`, and the dashboard's Phase 3 panel are
+unaffected. New CLI subcommands `spoof` and `restore` run the change/restore
+directly (no prompts) and are now safe to expose as dashboard buttons, since
+there's no GUI step blocking them - added to `dashboard/app.py`'s
+`RUN_COMMANDS` and the Phase 3 panel.
+
+**MAC generation:** when no `--mac` is given, `demo`/`spoof` generate a random
+address with the locally-administered bit set (second hex digit 2/6/A/E) and
+the multicast bit clear - the same convention OS-level MAC-randomisation
+privacy features use. This avoids picking a fake vendor OUI that could
+collide with a real device, and is worth a sentence on the Phase 3 slide.
+
+**Trade-off, stated plainly:** CLAUDE.md's tech stack table originally named
+SMAC specifically; this is a deliberate, user-directed departure from that
+brief in favour of demo reliability. CLAUDE.md itself has been updated to
+describe the registry-based approach so the standing doc doesn't contradict
+the code. `SMAC_PATH` was removed from `shared/config.py` and `find_tool`'s
+candidate paths in `shared/utils.py` - fully dead once nothing launches SMAC.
+
+**Known caveat found while wiring this up:** a read-only check of Jayant's
+Wi-Fi adapter's registry key found an *existing* `NetworkAddress` override
+(`0C0C0C0C0C01`) that predates this change and does not match the live MAC
+(`B8-1E-A4-34-01-BD`) - it was written but never applied (no restart since).
+Not created by this session's code; left in place rather than silently
+cleared. `restore` will clear it correctly regardless of its value, but run
+`python phase3_spoofing/mac_control.py restore` once before the first `demo`
+to start from a known-clean state, and keep an eye out for the same thing on
+Jay's or Elan's laptops if this script is ever run there.
 
 ---
 
@@ -263,7 +315,9 @@ python phase2_capture/analyze.py
 # Member 3 (Jayant) — me
 python phase4_analysis/analyze_security.py --sample   # build now, before their data
 python phase4_analysis/report.py
-python phase3_spoofing/mac_control.py view            # then: demo (Administrator + SMAC)
+python phase3_spoofing/mac_control.py view             # then: restore (clean slate) -> demo, Administrator shell
+python phase3_spoofing/mac_control.py restore
+python phase3_spoofing/mac_control.py demo
 python phase4_analysis/analyze_security.py            # for real, once their files land
 python phase4_analysis/report.py
 ```
