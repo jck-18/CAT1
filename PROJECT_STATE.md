@@ -198,6 +198,52 @@ now being tested *with the gate removed* - a real attempt, not a pre-refusal);
 any laptop's wired Ethernet; failing all of those, present the driver
 restriction itself as the Phase 3 finding (modern Wi-Fi drivers increasingly
 refuse registry MAC override) plus a recording from whichever adapter works.
+**Resolved: Elan's RTL8821CE spoofed successfully** (`20-2B-...` ->
+`2A-03-B7-90-A2-8B`), logged as `LAPTOP-2`. So the live spoof runs on Elan's
+laptop tomorrow; Jayant collects his `mac_log.json`.
+
+### 3.9 Added a monitoring lens: Employee Network Activity Monitor (2026-08-12)
+On top of the security assessment, added a second lens over the *same* captured
+data, reframing it as a corporate network-activity monitor
+(`phase4_analysis/activity_monitor.py` -> `activity.json`; dashboard "Activity
+Monitor" view; `report.xlsx` gains Activity Devices / Domains / Blind Spots
+sheets). New narrative for the presentation: "a tool a company could use to see
+what remote employees do on the network - and what it fundamentally can't see."
+
+**Framing was chosen deliberately (user picked "activity + privacy angle").**
+The naive "productivity monitoring" pitch was validated and rejected on three
+honest grounds, all baked into the tool's own output so we're not hiding them:
+- *Productivity != traffic.* The score is labelled an indicative activity proxy,
+  not productivity.
+- *Remote != reachable.* You can't sniff a home network from a LAN node; scoped
+  as "office LAN / VPN egress" traffic.
+- *Encryption + our own advice blind it.* The blind-spots panel quantifies it
+  from the real capture: 66% of bytes encrypted, **98% from IPv6 privacy
+  addresses that can't be tied to a device**, 383 lookups that DNS-over-HTTPS
+  (which analyze_security.py *recommends*) would erase, and MAC identity
+  forgeable via Phase 3. For a Data Security & Privacy course this contradiction
+  is the strongest material, so it's foregrounded, not buried.
+
+**Implementation notes:**
+- Primary source is `packets.csv` (finally load-bearing - domains come from DNS
+  queries, TLS SNI, and HTTP hosts per packet). This retroactively answers the
+  earlier "do we need packets.csv?" question: for the security half, no; for the
+  monitor, yes.
+- The gateway/DNS-resolver is detected (host with :53 open) and excluded from
+  "employees" - its captured domains are everyone's relayed queries.
+- Domain categorisation uses dot-boundary matching after a bug where `t.co`
+  (Twitter) matched inside `googleusercon**t.co**m` and mislabelled it social.
+- Verified end to end on the real capture: 2 devices surfaced (Elan identified,
+  Jay unidentified because his MAC wasn't captured - self-heals with a proper
+  scan), categories/blind-spots correct, dashboard view and workbook sheets
+  render.
+
+**A process note worth keeping:** background dashboard servers launched via the
+Bash `(python ... &)` pattern do NOT die when the tool call returns - this
+session accumulated ~7 orphaned Flask instances on port 5000, and some were
+WindowsApps `python3.12` whose CommandLine CIM can't read, so kill-by-name
+missed them. Kill dashboards by **port owner** (`Get-NetTCPConnection -LocalPort
+5000 | Stop-Process`), not by matching the command line.
 
 ---
 

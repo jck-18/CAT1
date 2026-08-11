@@ -432,6 +432,69 @@ def wrap_columns(worksheet, frame: "pd.DataFrame", columns: list[str],
                 Alignment(wrap_text=True, vertical="top")
 
 
+def _write_activity_sheets(writer) -> None:
+    """Add the employee network-activity monitor sheets (the monitoring lens)
+    to the workbook when activity_monitor.py has produced activity.json.
+    Restructures the Phase 4 deliverable to carry both the security audit and
+    the monitoring narrative in one book."""
+    path = config.PHASE4_OUTPUTS / "activity.json"
+    if not path.exists():
+        return
+    try:
+        report = read_json(path)
+    except (ValueError, OSError):
+        return
+
+    # 1. Devices (one row per monitored employee/device)
+    dev_rows = []
+    for e in report.get("employees", []):
+        act = e.get("activity", {})
+        dev_rows.append({
+            "device": e.get("label"),
+            "identified": "yes" if e.get("identified") else "no",
+            "ip": e.get("ip"), "mac": e.get("mac"),
+            "traffic_bytes": e.get("bytes"),
+            "active_minutes": e.get("active_minutes"),
+            "unique_domains": e.get("unique_domains"),
+            "activity_score*": act.get("headline_score"),
+            "work_site_ratio_%": act.get("work_domain_ratio"),
+            "presence_%": act.get("presence_pct"),
+            "top_categories": ", ".join(f"{k}:{v}" for k, v in
+                                        list(e.get("category_breakdown", {}).items())[:4]),
+            "flags": " | ".join(e.get("flags", [])),
+        })
+    devices = pd.DataFrame(dev_rows) if dev_rows else pd.DataFrame({"(no devices)": []})
+
+    # 2. Domains (org-wide)
+    dom_rows = [{"domain": d.get("domain"), "hits": d.get("hits"),
+                 "category": d.get("category")}
+                for d in report.get("organisation", {}).get("top_domains", [])]
+    domains = pd.DataFrame(dom_rows) if dom_rows else pd.DataFrame({"(no domains)": []})
+
+    # 3. Blind spots + scope/privacy notes
+    bs = report.get("blind_spots", {})
+    blind_rows = [{"blind spot / note": n} for n in bs.get("notes", [])]
+    blind_rows += [
+        {"blind spot / note": ""},
+        {"blind spot / note": "SCOPE: " + report.get("scope_caveat", "")},
+        {"blind spot / note": "PRIVACY: " + report.get("privacy_notice", "")},
+    ]
+    blind = pd.DataFrame(blind_rows)
+
+    for name, frame in (("Activity Devices", devices),
+                        ("Activity Domains", domains),
+                        ("Blind Spots", blind)):
+        frame.to_excel(writer, sheet_name=name, index=False)
+        ws = writer.sheets[name]
+        style_header(ws, len(frame.columns))
+        autosize(ws, frame)
+        if name == "Blind Spots":
+            ws.column_dimensions["A"].width = 105
+            for row in range(2, ws.max_row + 1):
+                ws.cell(row=row, column=1).alignment = Alignment(wrap_text=True, vertical="top")
+    ok("added monitoring sheets (Activity Devices / Domains / Blind Spots)")
+
+
 def build_workbook(frames: dict, data: dict, charts: list[Path],
                    path: Path) -> Path:
     step("Writing the workbook")
@@ -485,6 +548,9 @@ def build_workbook(frames: dict, data: dict, charts: list[Path],
             worksheet.column_dimensions["A"].width = 110
             for row in range(2, worksheet.max_row + 1):
                 worksheet.cell(row=row, column=1).font = Font(name="Consolas", size=9)
+
+        # Monitoring lens: employee network-activity sheets, if produced.
+        _write_activity_sheets(writer)
 
         # Charts on their own sheet so the deck can screenshot straight from it.
         if charts:

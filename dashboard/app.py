@@ -174,6 +174,18 @@ def api_phase4():
     })
 
 
+@app.get("/api/activity")
+def api_activity():
+    """Employee network-activity monitor view (the monitoring lens)."""
+    path = config.PHASE4_OUTPUTS / "activity.json"
+    doc = _read_json(path) or {}
+    return jsonify({
+        "source": _source(path),
+        "available": bool(doc.get("employees") is not None and doc),
+        "report": doc,
+    })
+
+
 @app.get("/api/overview")
 def api_overview():
     """One call the page polls: freshness of every source + headline numbers."""
@@ -198,6 +210,7 @@ def api_overview():
             "phase2": _source(config.PROTOCOL_STATS_JSON),
             "phase3": _source(config.MAC_LOG_JSON),
             "phase4": _source(config.FINDINGS_JSON),
+            "activity": _source(config.PHASE4_OUTPUTS / "activity.json"),
         },
         "kpis": {
             "hosts_up": sum(1 for h in hosts if h.get("state") == "up" or h.get("ports")),
@@ -230,6 +243,8 @@ RUN_COMMANDS: dict[str, list[str]] = {
     "phase4:analyze":         [PYTHON, "phase4_analysis/analyze_security.py"],
     "phase4:analyze:sample":  [PYTHON, "phase4_analysis/analyze_security.py", "--sample"],
     "phase4:report":          [PYTHON, "phase4_analysis/report.py"],
+    "activity:analyze":       [PYTHON, "phase4_analysis/activity_monitor.py"],
+    "activity:analyze:sample": [PYTHON, "phase4_analysis/activity_monitor.py", "--sample"],
 }
 
 # 'demo' is deliberately absent - it still has one interactive pause (the

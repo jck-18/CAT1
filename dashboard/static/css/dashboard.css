@@ -136,6 +136,31 @@ a { color: var(--primary); }
 
 .sidebar .foot { margin-top: auto; font-size: 11px; color: var(--text-faint); padding-top: var(--s5); }
 
+.navsep { font-size: 10px; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text-faint); margin: var(--s4) var(--s3) 6px; font-weight: 600; }
+
+/* activity monitor bits */
+.emp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s4); }
+.emp-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s4); }
+.emp-card .top { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s3); }
+.emp-card .who { font-weight: 600; }
+.emp-card .who small { display: block; color: var(--text-faint); font-weight: 400; font-family: var(--font-mono); font-size: 11px; }
+.emp-card .score { margin-left: auto; text-align: center; }
+.emp-card .score b { font-size: 22px; font-variant-numeric: tabular-nums; }
+.emp-card .score span { display: block; font-size: 10px; color: var(--text-faint); text-transform: uppercase; }
+.emp-stats { display: flex; gap: var(--s4); font-size: 12px; color: var(--text-muted); margin-bottom: var(--s3); flex-wrap: wrap; }
+.emp-stats b { color: var(--text); font-variant-numeric: tabular-nums; }
+.catbar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 8px; background: var(--surface-hover); }
+.catbar i { height: 100%; }
+.cat-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.cat-chip { font-size: 11px; padding: 2px 7px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; background: var(--surface-hover); color: var(--text-muted); }
+.cat-chip i { width: 8px; height: 8px; border-radius: 2px; }
+.emp-flags { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.emp-flag { font-size: 11.5px; color: var(--sev-high); display: flex; gap: 6px; align-items: flex-start; }
+.blind-list { display: flex; flex-direction: column; gap: 10px; }
+.blind-item { display: flex; gap: 10px; font-size: 13px; align-items: flex-start; }
+.blind-item .pct { font-family: var(--font-mono); font-weight: 700; color: var(--accent); min-width: 46px; text-align: right; font-variant-numeric: tabular-nums; }
+
 /* ---- main ------------------------------------------------------------- */
 .main { padding: var(--s5) var(--s6); max-width: 1500px; width: 100%; }
 

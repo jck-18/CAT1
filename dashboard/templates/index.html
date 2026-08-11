@@ -30,6 +30,11 @@
       <a data-nav="phase4"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg> Phase 4 · Findings <span class="dot off" data-dot="phase4"></span></a>
     </nav>
 
+    <div class="navsep">Monitoring lens</div>
+    <nav class="nav" aria-label="Monitoring">
+      <a data-nav="activity"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> Activity Monitor <span class="dot off" data-dot="activity"></span></a>
+    </nav>
+
     <div class="foot">
       Scope: the team's own three laptops on their own network.<br>
       Read-only for Phases&nbsp;1&nbsp;&amp;&nbsp;2; Phases&nbsp;3&nbsp;&amp;&nbsp;4 run here.
@@ -150,6 +155,36 @@
           <div class="meta" id="p4-filter"></div>
         </header>
         <div class="body" id="p4-body"></div>
+      </div>
+    </section>
+
+    <!-- Activity Monitor (monitoring lens) --------------------------- -->
+    <section data-section="activity" class="hidden">
+      <div class="banner" id="activity-privacy">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span id="activity-privacy-text">Lawful monitoring requires notice, consent, and a lawful basis. This measures network <b>&nbsp;activity, not productivity</b>.</span>
+      </div>
+      <div class="kpis" id="act-kpis"></div>
+      <div class="panel">
+        <header>
+          <span class="ph-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+          <h3>Monitored devices</h3>
+          <div class="meta row-actions">
+            <button class="btn sm" data-run="activity:analyze">Re-run monitor</button>
+            <button class="btn sm" data-run="activity:analyze:sample">Sample</button>
+          </div>
+        </header>
+        <div class="body" id="act-employees"></div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <header><span class="ph-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></span><h3>Top domains &amp; categories</h3></header>
+          <div class="body" id="act-domains"></div>
+        </div>
+        <div class="panel" id="act-blind-panel">
+          <header><span class="ph-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg></span><h3>Blind spots — what monitoring can't see</h3></header>
+          <div class="body" id="act-blind"></div>
+        </div>
       </div>
     </section>
   </main>

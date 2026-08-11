@@ -62,6 +62,14 @@ inputs, so you can't mistake it for the real assessment.
 | Phase 2 · Capture | `phase2_capture/outputs/protocol_stats.json` | read-only |
 | Phase 3 · Spoofing | `phase3_spoofing/outputs/mac_log.json` | View adapters · **Spoof MAC** · **Restore MAC** · Snapshot before/after/restored · Verify |
 | Phase 4 · Findings | `phase4_analysis/outputs/findings.json` + `firewall_rules.txt` | Re-analyze · Re-analyze (sample) · Build report |
+| Activity Monitor | `phase4_analysis/outputs/activity.json` | Re-run monitor · Sample |
+
+**Activity Monitor (monitoring lens)** reframes the same captured data as an
+employee network-activity monitor — per-device traffic/domains/active-time, a
+work-vs-personal category breakdown, an *indicative* activity score (labelled as
+a proxy, **not** productivity), and a "blind spots" panel quantifying what the
+monitoring **can't** see (encryption, IPv6 privacy addressing, DoH, MAC
+spoofing). Produced by `phase4_analysis/activity_monitor.py`.
 
 Team laptops are labelled by MAC (drift-proof — see `shared/config.py`), so the
 right owner shows even after the hotspot reshuffles IPs.

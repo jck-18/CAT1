@@ -11,6 +11,14 @@ const SEV = ["Critical", "High", "Medium", "Low", "Info"];
 const INSECURE = new Set(["HTTP", "FTP", "TELNET", "POP", "IMAP", "SMTP", "SNMP",
   "TFTP", "DNS", "NBNS", "LLMNR", "MDNS", "ARP", "NTLMSSP"]);
 
+const CAT_COLORS = {
+  "work-dev": "#3b82f6", "work-collab": "#22c55e", "cloud-infra": "#06b6d4",
+  "social": "#f59e0b", "streaming": "#ef4444", "shopping": "#a855f7",
+  "news": "#eab308", "search-ref": "#94a3b8", "infrastructure": "#64748b",
+  "other": "#475569",
+};
+const catColor = (c) => CAT_COLORS[c] || "#475569";
+
 const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -245,27 +253,120 @@ async function loadPhase4() {
       <td class="small muted-text">${esc(f.recommendation || "")}</td></tr>`).join("")}</tbody></table></div>`;
 }
 
+/* ---- activity monitor ------------------------------------------------- */
+async function loadActivity() {
+  const d = await getJSON("/api/activity");
+  setMeta("activity", d.source);
+  const r = d.report || {};
+  if (!d.available || !r.employees) {
+    $("#act-kpis").innerHTML = "";
+    $("#act-employees").innerHTML = emptyState("No activity report yet.",
+      "phase4_analysis/activity_monitor.py");
+    $("#act-domains").innerHTML = "";
+    $("#act-blind").innerHTML = "";
+    return;
+  }
+  const bs = r.blind_spots || {};
+  const org = r.organisation || {};
+  // KPI strip
+  $("#act-kpis").innerHTML = [
+    { label: "Devices seen", value: num((r.employees || []).length) },
+    { label: "Domains observed", value: num(org.domains_observed) },
+    { label: "Encrypted traffic", value: (bs.encrypted_bytes_pct ?? "—") + "%", alert: true },
+    { label: "IPv6 unattributable", value: (bs.ipv6_bytes_pct ?? "—") + "%", alert: true },
+  ].map((c) => `<div class="kpi ${c.alert ? "alert" : ""}"><div class="label">${esc(c.label)}</div>
+    <div class="value">${esc(c.value)}</div></div>`).join("");
+
+  // employee cards
+  $("#act-employees").innerHTML = `<div class="emp-grid">${r.employees.map(empCard).join("")}</div>`;
+
+  // top domains + category bar
+  const cats = org.category_hits || {};
+  const catTotal = Object.values(cats).reduce((a, c) => a + (c.hits || 0), 0) || 1;
+  const catBar = `<div class="catbar">${Object.entries(cats).map(([c, v]) =>
+    `<i style="width:${(v.hits / catTotal) * 100}%;background:${catColor(c)}" title="${esc(c)} ${v.share_pct}%"></i>`).join("")}</div>
+    <div class="cat-chips" style="margin-bottom:14px">${Object.entries(cats).map(([c, v]) =>
+    `<span class="cat-chip"><i style="background:${catColor(c)}"></i>${esc(c)} ${v.share_pct}%</span>`).join("")}</div>`;
+  $("#act-domains").innerHTML = catBar + `<div class="table-wrap"><table class="data">
+    <thead><tr><th>Domain</th><th>Hits</th><th>Category</th></tr></thead><tbody>${
+    (org.top_domains || []).slice(0, 12).map((t) => `<tr>
+      <td class="mono">${esc(t.domain)}</td><td class="num">${num(t.hits)}</td>
+      <td><span class="cat-chip"><i style="background:${catColor(t.category)}"></i>${esc(t.category)}</span></td></tr>`).join("")}</tbody></table></div>`;
+
+  // blind spots
+  $("#act-blind").innerHTML = `<div class="blind-list">${(bs.notes || []).map((n) => {
+    const m = n.match(/^(\d+%|\d+)\s/);
+    const pct = m ? m[1] : "";
+    const text = pct ? n.slice(m[0].length) : n;
+    return `<div class="blind-item"><span class="pct">${esc(pct)}</span><span>${esc(text)}</span></div>`;
+  }).join("")}</div>`;
+
+  if (r.privacy_notice) $("#activity-privacy-text").innerHTML =
+    `<b>Privacy:</b> ${esc(r.privacy_notice)}`;
+}
+
+function empCard(e) {
+  const act = e.activity || {};
+  const cats = e.category_breakdown || {};
+  const total = Object.values(cats).reduce((a, b) => a + b, 0) || 1;
+  const bar = Object.entries(cats).map(([c, n]) =>
+    `<i style="width:${(n / total) * 100}%;background:${catColor(c)}"></i>`).join("");
+  const chips = Object.entries(cats).slice(0, 5).map(([c, n]) =>
+    `<span class="cat-chip"><i style="background:${catColor(c)}"></i>${esc(c)} ${n}</span>`).join("");
+  const score = act.headline_score;
+  const scoreColor = score == null ? "var(--text-faint)"
+    : score >= 60 ? "var(--sev-low)" : score >= 35 ? "var(--sev-medium)" : "var(--sev-high)";
+  const flags = (e.flags || []).map((f) =>
+    `<div class="emp-flag">▲ ${esc(f)}</div>`).join("");
+  const identBadge = e.identified ? "" : ' <span class="badge muted">unidentified</span>';
+  return `<div class="emp-card">
+    <div class="top">
+      <div class="who">${esc(e.label)}${identBadge}<small>${esc(e.ip)}${e.mac ? " · " + esc(e.mac) : ""}</small></div>
+      <div class="score"><b style="color:${scoreColor}">${score == null ? "—" : score}</b><span>activity*</span></div>
+    </div>
+    <div class="emp-stats">
+      <div>Traffic <b>${esc(human(e.bytes))}</b></div>
+      <div>Active <b>${e.active_minutes == null ? "—" : e.active_minutes + "m"}</b></div>
+      <div>Domains <b>${num(e.unique_domains)}</b></div>
+      ${act.work_domain_ratio != null ? `<div>Work sites <b>${act.work_domain_ratio}%</b></div>` : ""}
+    </div>
+    ${total > 1 ? `<div class="catbar">${bar}</div><div class="cat-chips">${chips}</div>` : '<div class="small muted-text">no site categories captured</div>'}
+    ${flags ? `<div class="emp-flags">${flags}</div>` : ""}
+  </div>`;
+}
+
+function human(bytes) {
+  bytes = Number(bytes) || 0;
+  const u = ["B", "KB", "MB", "GB"];
+  let i = 0;
+  while (bytes >= 1024 && i < u.length - 1) { bytes /= 1024; i++; }
+  return `${i === 0 ? bytes : bytes.toFixed(1)} ${u[i]}`;
+}
+
 /* ---- meta line + nav dots -------------------------------------------- */
 function setMeta(phase, source) {
   const el = $(`[data-meta="${phase}"]`);
   if (el && source) el.textContent = source.exists ? `updated ${timeAgo(source.updated)}` : "no data yet";
 }
 
-const LOADERS = { phase1: loadPhase1, phase2: loadPhase2, phase3: loadPhase3, phase4: loadPhase4 };
+const LOADERS = { phase1: loadPhase1, phase2: loadPhase2, phase3: loadPhase3,
+  phase4: loadPhase4, activity: loadActivity };
 const SUBTITLES = {
   overview: "Live status across all four assessment phases",
   phase1: "Nmap host discovery, services and OS — read from Member 1's output",
   phase2: "Traffic capture parsed with PyShark — read from Member 2's output",
   phase3: "MAC spoofing log — runs on this laptop",
   phase4: "Synthesis, findings and hardening — runs on this laptop",
+  activity: "Employee network-activity monitor — what an employer sees, and what it can't",
 };
+const TITLES = { overview: "Overview", activity: "Activity Monitor" };
 let current = "overview";
 
 function showSection(name) {
   current = name;
   $$("[data-section]").forEach((s) => s.classList.toggle("hidden", s.dataset.section !== name));
   $$(".nav a").forEach((a) => a.classList.toggle("active", a.dataset.nav === name));
-  $("#section-title").textContent = name === "overview" ? "Overview" : `Phase ${name.slice(-1)}`;
+  $("#section-title").textContent = TITLES[name] || `Phase ${name.slice(-1)}`;
   $("#section-sub").textContent = SUBTITLES[name] || "";
   if (LOADERS[name]) LOADERS[name]().catch((e) => toast("Load failed", e.message, "err"));
 }

@@ -5,13 +5,53 @@ exposures matter, why, and what to do about each. Phases 1 and 2 report facts;
 this phase applies judgement to them and produces the deliverable the whole
 project is graded on.
 
+Phase 4 has **two lenses over the same captured data**:
+1. **Security audit** (`analyze_security.py` → `report.py`) — open-port /
+   insecure-protocol findings, firewall rules, hardening recs. The original
+   assessment.
+2. **Monitoring lens** (`activity_monitor.py`) — reframes the same traffic as an
+   *employee network-activity monitor*: the visibility an employer gets from
+   watching traffic at the office LAN / VPN, **and** what it can't see. Honest by
+   design — it measures network *activity, not productivity*, and quantifies its
+   own blind spots. See "Activity monitor" below.
+
+## Activity monitor (the monitoring lens)
+
+```bash
+python activity_monitor.py            # reads packets.csv + protocol_stats.json (+ hosts, mac_log)
+python activity_monitor.py --sample   # synthetic data
+```
+
+Produces `outputs/activity.json`, consumed by the dashboard's **Activity
+Monitor** view and folded into `report.xlsx` as the *Activity Devices*,
+*Activity Domains*, and *Blind Spots* sheets (run `report.py` after).
+
+What it does, and the honesty built into it:
+- **Per-device**: traffic volume, active window, domains visited (from DNS +
+  TLS SNI + HTTP), a work-vs-personal category breakdown, and an *indicative
+  activity score* — explicitly a network-activity proxy, **not** a productivity
+  measure (reading a doc is invisible; idle autoplay is loud).
+- **Org-wide**: top domains categorised (work-dev / collab / social / streaming
+  / …). The DNS resolver / gateway is detected and excluded — its "domains" are
+  everyone's queries relayed through it, not its own browsing.
+- **Blind spots** (the point, for a privacy course): how much traffic is
+  encrypted, how much comes from IPv6 privacy addresses that can't be tied to a
+  device, how many lookups would vanish under DNS-over-HTTPS (which the security
+  half of this phase *recommends*), and that MAC identity is forgeable (Phase 3).
+
+Scope it honestly in the report: this sees traffic crossing the monitored
+network (office LAN / VPN egress), **not** a remote worker's home network, and
+it is a lawful-monitoring demonstration on the team's own devices — not covert
+surveillance.
+
 ## What you install
 
 | What | How |
 |---|---|
 | Python packages | `pip install -r requirements.txt` from the repo root |
 
-No external tools. `analyze_security.py` is stdlib only; `report.py` needs
+No external tools. `analyze_security.py` and `activity_monitor.py` are stdlib
+only; `report.py` needs
 pandas, matplotlib and openpyxl.
 
 ## You are not blocked waiting for the others
