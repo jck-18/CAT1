@@ -1,0 +1,5 @@
+stage,timestamp,host,interface,adapter_description,mac,ipv4,elevated,note
+before,2026-08-12T01:09:37+05:30,LAPTOP-2,Wi-Fi,Realtek RTL8821CE 802.11ac PCIe Adapter,20-2B-20-C0-D1-29,10.153.210.37,True,pre-spoof (via 'spoof' command)
+after,2026-08-12T01:09:38+05:30,LAPTOP-2,Wi-Fi,Realtek RTL8821CE 802.11ac PCIe Adapter,20-2B-20-C0-D1-29,10.153.210.37,True,manual spoof
+before,2026-08-12T01:22:18+05:30,LAPTOP-2,Wi-Fi,Realtek RTL8821CE 802.11ac PCIe Adapter,20-2B-20-C0-D1-29,10.153.210.37,True,pre-spoof (via 'spoof' command)
+after,2026-08-12T01:22:38+05:30,LAPTOP-2,Wi-Fi,Realtek RTL8821CE 802.11ac PCIe Adapter,2A-03-B7-90-A2-8B,,True,manual spoof
