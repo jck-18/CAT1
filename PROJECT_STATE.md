@@ -1,4 +1,4 @@
-# Project State & Decisions Log
+# Project State & Decisions Lo
 
 Companion to `CLAUDE.md`. Where CLAUDE.md is the standing brief (what the
 project *is*), this file is the running record of what has been **built**, what
