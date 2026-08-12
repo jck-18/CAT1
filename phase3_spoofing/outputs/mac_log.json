@@ -149,8 +149,82 @@
           "ipv4": "192.168.2.1"
         }
       ]
+    },
+    {
+      "stage": "before",
+      "timestamp": "2026-08-12T10:05:59+05:30",
+      "host": "laptop-3",
+      "interface": "Wi-Fi",
+      "adapter_description": "Realtek RTL8821CE 802.11ac PCIe Adapter",
+      "mac": "2A-03-B7-90-A2-8B",
+      "ipv4": "10.212.85.161",
+      "elevated": true,
+      "note": "pre-spoof (via 'spoof' command)",
+      "all_adapters": [
+        {
+          "interface": "Wi-Fi",
+          "adapter_description": "Realtek RTL8821CE 802.11ac PCIe Adapter",
+          "mac": "2A-03-B7-90-A2-8B",
+          "transport": "\\Device\\Tcpip_{2347A5E9-37F1-4D54-BDD2-FC9133B44916}",
+          "connected": true,
+          "ipv4": "10.212.85.161"
+        },
+        {
+          "interface": "Ethernet 4",
+          "adapter_description": "VirtualBox Host-Only Ethernet Adapter",
+          "mac": null,
+          "transport": "Hardware not present",
+          "connected": true,
+          "ipv4": null
+        },
+        {
+          "interface": "Ethernet 5",
+          "adapter_description": "VirtualBox Host-Only Ethernet Adapter #2",
+          "mac": "0A-00-27-00-00-14",
+          "transport": "\\Device\\Tcpip_{DB39FF6D-87F9-4A49-96B8-06FC67FF41B9}",
+          "connected": true,
+          "ipv4": "192.168.2.1"
+        }
+      ]
+    },
+    {
+      "stage": "after",
+      "timestamp": "2026-08-12T10:11:17+05:30",
+      "host": "laptop-3",
+      "interface": "Wi-Fi",
+      "adapter_description": "Realtek RTL8821CE 802.11ac PCIe Adapter",
+      "mac": "3E-59-A9-12-20-84",
+      "ipv4": "10.212.85.246",
+      "elevated": true,
+      "note": "manual spoof",
+      "all_adapters": [
+        {
+          "interface": "Wi-Fi",
+          "adapter_description": "Realtek RTL8821CE 802.11ac PCIe Adapter",
+          "mac": "3E-59-A9-12-20-84",
+          "transport": "\\Device\\Tcpip_{2347A5E9-37F1-4D54-BDD2-FC9133B44916}",
+          "connected": true,
+          "ipv4": "10.212.85.246"
+        },
+        {
+          "interface": "Ethernet 4",
+          "adapter_description": "VirtualBox Host-Only Ethernet Adapter",
+          "mac": null,
+          "transport": "Hardware not present",
+          "connected": true,
+          "ipv4": null
+        },
+        {
+          "interface": "Ethernet 5",
+          "adapter_description": "VirtualBox Host-Only Ethernet Adapter #2",
+          "mac": "0A-00-27-00-00-14",
+          "transport": "\\Device\\Tcpip_{DB39FF6D-87F9-4A49-96B8-06FC67FF41B9}",
+          "connected": true,
+          "ipv4": "192.168.2.1"
+        }
+      ]
     }
   ],
   "interface": "Wi-Fi",
-  "updated_at": "2026-08-12T01:22:38+05:30"
+  "updated_at": "2026-08-12T10:11:17+05:30"
 }
