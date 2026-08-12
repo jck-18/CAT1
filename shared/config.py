@@ -67,7 +67,7 @@ CHARTS_DIR = PHASE4_OUTPUTS / "charts"
 # this laptop's own IP + mask on every run, which is always correct for the
 # hotspot we are actually on. Only pin this if you deliberately need to scan a
 # different range than the one this laptop sits in (or set NSA_TARGET_NETWORK).
-TARGET_NETWORK: str | None = "10.242.170.0/24"
+TARGET_NETWORK: str | None = "10.212.85.0/24"
 
 # The three team laptops. The MAC is the stable identity - it is how the report
 # knows whose laptop each scanned host is (see host_label). DHCP hands out a
@@ -80,11 +80,11 @@ TARGET_NETWORK: str | None = "10.242.170.0/24"
 # will (correctly) stop matching by MAC.
 HOSTS: list[dict] = [
     {"name": "laptop-1", "owner": "Member 1 (Jay)",
-     "mac": "10-68-38-C3-E3-63", "ip": None, "interface": "Wi-Fi"},
+     "mac": "10-68-38-C3-E3-63", "ip": "10.212.85.185", "interface": "Wi-Fi"},
     {"name": "laptop-2", "owner": "Member 2 (Elan)",
-     "mac": "20-2B-20-C0-D1-29", "ip": None, "interface": "Wi-Fi"},
+     "mac": "20-2B-20-C0-D1-29", "ip": "10.212.85.161", "interface": "Wi-Fi"},
     {"name": "laptop-3", "owner": "Member 3 (Jayant)",
-     "mac": "B8-1E-A4-34-01-BD", "ip": None, "interface": "Wi-Fi"},
+     "mac": "B8-1E-A4-34-01-BD", "ip": "10.212.85.108", "interface": "Wi-Fi"},
 ]
 
 # Which laptop is running the script. Set this per-machine (or via NSA_THIS_HOST)
