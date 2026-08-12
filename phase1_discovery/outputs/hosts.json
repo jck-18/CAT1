@@ -1,11 +1,43 @@
 [
   {
-    "ip": "10.242.170.120",
+    "ip": "10.212.85.108",
     "hostname": null,
-    "mac": "A2-42-B2-4E-1A-CA",
+    "mac": "B8-1E-A4-34-01-BD",
+    "vendor": "Liteon Technology",
+    "os": "Microsoft Windows 11 24H2",
+    "os_accuracy": "97",
+    "state": "up",
+    "ports": [
+      {
+        "port": 135,
+        "protocol": "tcp",
+        "service": "msrpc",
+        "version": "Microsoft Windows RPC",
+        "state": "open"
+      },
+      {
+        "port": 139,
+        "protocol": "tcp",
+        "service": "netbios-ssn",
+        "version": "Microsoft Windows netbios-ssn",
+        "state": "open"
+      },
+      {
+        "port": 445,
+        "protocol": "tcp",
+        "service": "microsoft-ds",
+        "version": null,
+        "state": "open"
+      }
+    ]
+  },
+  {
+    "ip": "10.212.85.119",
+    "hostname": null,
+    "mac": "5A-34-0D-12-9D-5E",
     "vendor": null,
-    "os": null,
-    "os_accuracy": null,
+    "os": "Android 10 (Linux 4.14)",
+    "os_accuracy": "97",
     "state": "up",
     "ports": [
       {
@@ -18,12 +50,12 @@
     ]
   },
   {
-    "ip": "10.242.170.185",
+    "ip": "10.212.85.185",
     "hostname": null,
     "mac": null,
     "vendor": null,
-    "os": null,
-    "os_accuracy": null,
+    "os": "Microsoft Windows 11 24H2 - 25H2",
+    "os_accuracy": "100",
     "state": "up",
     "ports": [
       {
@@ -45,45 +77,6 @@
         "protocol": "tcp",
         "service": "microsoft-ds",
         "version": null,
-        "state": "open"
-      }
-    ]
-  },
-  {
-    "ip": "10.242.170.37",
-    "hostname": null,
-    "mac": "20-2B-20-C0-D1-29",
-    "vendor": "Cloud Network Technology Singapore PTE.",
-    "os": null,
-    "os_accuracy": null,
-    "state": "up",
-    "ports": [
-      {
-        "port": 135,
-        "protocol": "tcp",
-        "service": "msrpc",
-        "version": "Microsoft Windows RPC",
-        "state": "open"
-      },
-      {
-        "port": 139,
-        "protocol": "tcp",
-        "service": "netbios-ssn",
-        "version": "Microsoft Windows netbios-ssn",
-        "state": "open"
-      },
-      {
-        "port": 445,
-        "protocol": "tcp",
-        "service": "microsoft-ds",
-        "version": null,
-        "state": "open"
-      },
-      {
-        "port": 3306,
-        "protocol": "tcp",
-        "service": "mysql",
-        "version": "MySQL unauthorized",
         "state": "open"
       }
     ]
