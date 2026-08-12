@@ -1,1087 +1,923 @@
 {
-  "generated_at": "2026-08-12T09:54:54+05:30",
+  "generated_at": "2026-08-12T10:46:11+05:30",
   "pcap": "D:\\Elan\\Lab\\Data_privacy\\Project\\CAT1\\phase2_capture\\outputs\\capture.pcap",
   "display_filter": null,
-  "total_packets": 27445,
-  "total_bytes": 25442166,
-  "capture_start": "2026-08-12T09:52:25.700514",
-  "capture_end": "2026-08-12T09:53:25.689887",
-  "duration_seconds": 59.989,
+  "total_packets": 1786,
+  "total_bytes": 628915,
+  "capture_start": "2026-08-12T10:44:06.041540",
+  "capture_end": "2026-08-12T10:45:35.295886",
+  "duration_seconds": 89.254,
   "protocol_counts": {
-    "QUIC": 15696,
-    "TCP": 7551,
-    "TLS": 3549,
-    "DNS": 556,
-    "ICMP": 24,
-    "TCP-DATA": 22,
-    "ARP": 16,
-    "MSDO": 7,
-    "MDNS": 6,
-    "ICMPV6": 6,
-    "HTTP": 4,
-    "DATA-TEXT-LINES": 4,
-    "SSDP": 4
+    "TCP": 437,
+    "QUIC": 435,
+    "TLS": 303,
+    "TCP-DATA": 276,
+    "DNS": 212,
+    "ARP": 57,
+    "ICMP": 37,
+    "ICMPV6": 11,
+    "SSDP": 8,
+    "HTTP": 5,
+    "DATA-TEXT-LINES": 5
   },
   "protocol_bytes": {
-    "QUIC": 14343212,
-    "TCP": 6986824,
-    "TLS": 4028908,
-    "DNS": 62615,
-    "TCP-DATA": 14506,
-    "ICMP": 1776,
-    "SSDP": 849,
-    "MSDO": 832,
-    "ARP": 672,
-    "HTTP": 596,
-    "MDNS": 552,
-    "ICMPV6": 508,
-    "DATA-TEXT-LINES": 316
+    "QUIC": 233721,
+    "TLS": 201376,
+    "TCP-DATA": 91145,
+    "TCP": 69326,
+    "DNS": 23097,
+    "ICMP": 2738,
+    "ARP": 2394,
+    "SSDP": 1696,
+    "DATA-TEXT-LINES": 1343,
+    "HTTP": 1085,
+    "ICMPV6": 994
   },
   "tcp_destination_ports": {
-    "57205": 3376,
-    "443": 2437,
-    "31031": 1986,
-    "27085": 782,
-    "31387": 696,
-    "12751": 306,
-    "12420": 284,
-    "43171": 165,
-    "31055": 102,
-    "57860": 72,
-    "12608": 48,
-    "11410": 43,
-    "57645": 34,
-    "31166": 34,
-    "28495": 34,
-    "38854": 33,
-    "18474": 30,
-    "28286": 28,
-    "80": 26,
-    "12097": 23,
-    "61733": 22,
-    "59367": 21,
-    "23728": 21,
-    "9873": 21,
-    "21250": 20
+    "443": 269,
+    "80": 72,
+    "62116": 34,
+    "52637": 34,
+    "52621": 33,
+    "4105": 29,
+    "34235": 27,
+    "52631": 26,
+    "52634": 26,
+    "54282": 24,
+    "42878": 23,
+    "13748": 19,
+    "52627": 17,
+    "10226": 15,
+    "52630": 13,
+    "42892": 12,
+    "43222": 10,
+    "62115": 9,
+    "42888": 6,
+    "45421": 6,
+    "34234": 6,
+    "62127": 5,
+    "52628": 5,
+    "52632": 5,
+    "52636": 5
   },
   "udp_destination_ports": {
-    "443": 3892,
-    "58128": 2040,
-    "64825": 1900,
-    "64898": 1667,
-    "58949": 1626,
-    "55670": 1098,
-    "57815": 677,
-    "62601": 660,
-    "53477": 341,
-    "53": 277,
-    "64582": 255,
-    "55110": 130,
-    "61542": 73,
-    "60973": 71,
-    "62235": 54,
-    "54224": 53,
-    "58584": 47,
-    "55118": 44,
-    "53876": 37,
-    "60733": 36,
-    "60749": 33,
-    "53911": 32,
-    "54166": 32,
-    "65533": 28,
-    "60545": 28
+    "443": 313,
+    "59121": 137,
+    "53": 107,
+    "56151": 33,
+    "56128": 32,
+    "54772": 26,
+    "56621": 20,
+    "51120": 18,
+    "63286": 18,
+    "59453": 16,
+    "58730": 14,
+    "55792": 14,
+    "60867": 12,
+    "58770": 12,
+    "63063": 11,
+    "50866": 9,
+    "1900": 8,
+    "64102": 7,
+    "63110": 4,
+    "50868": 3,
+    "21027": 3,
+    "51469": 2,
+    "58411": 2,
+    "50452": 2,
+    "61571": 2
   },
   "top_talkers": [
     {
-      "ip": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets_sent": 6380,
-      "packets_received": 20438,
-      "bytes_sent": 1815495,
-      "label": null
-    },
-    {
-      "ip": "2001:4860:482b:400::",
-      "packets_sent": 3676,
-      "packets_received": 952,
-      "bytes_sent": 4446406,
-      "label": null
-    },
-    {
-      "ip": "2600:140f:5e00:1ab::1aca",
-      "packets_sent": 3376,
+      "ip": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets_sent": 616,
       "packets_received": 777,
-      "bytes_sent": 4527701,
+      "bytes_sent": 194185,
       "label": null
     },
     {
-      "ip": "2001:4860:482c:7700::",
-      "packets_sent": 2972,
-      "packets_received": 883,
-      "bytes_sent": 3302179,
+      "ip": "10.212.85.37",
+      "packets_sent": 220,
+      "packets_received": 161,
+      "bytes_sent": 18855,
       "label": null
     },
     {
-      "ip": "2405:200:1630:b43::c",
-      "packets_sent": 2682,
-      "packets_received": 475,
-      "bytes_sent": 3471182,
+      "ip": "2001:4860:4828:7700::",
+      "packets_sent": 137,
+      "packets_received": 120,
+      "bytes_sent": 68962,
       "label": null
-    },
-    {
-      "ip": "2405:200:1630:b43::e",
-      "packets_sent": 1626,
-      "packets_received": 274,
-      "bytes_sent": 2072226,
-      "label": null
-    },
-    {
-      "ip": "2404:6800:4003:c1a::77",
-      "packets_sent": 1391,
-      "packets_received": 320,
-      "bytes_sent": 1738585,
-      "label": null
-    },
-    {
-      "ip": "2404:6800:4007:834::2003",
-      "packets_sent": 765,
-      "packets_received": 181,
-      "bytes_sent": 904606,
-      "label": null
-    },
-    {
-      "ip": "2404:6800:4007:83e::200e",
-      "packets_sent": 685,
-      "packets_received": 392,
-      "bytes_sent": 461051,
-      "label": null
-    },
-    {
-      "ip": "2001:4860:482d:400::",
-      "packets_sent": 351,
-      "packets_received": 96,
-      "bytes_sent": 432281,
-      "label": null
-    },
-    {
-      "ip": "2001:df2:e500:ed1a::1",
-      "packets_sent": 325,
-      "packets_received": 132,
-      "bytes_sent": 401089,
-      "label": null
-    },
-    {
-      "ip": "10.212.85.161",
-      "packets_sent": 315,
-      "packets_received": 303,
-      "bytes_sent": 24665,
-      "label": "laptop-2 (Member 2 (Elan))"
     },
     {
       "ip": "10.212.85.119",
-      "packets_sent": 273,
-      "packets_received": 274,
-      "bytes_sent": 38788,
+      "packets_sent": 109,
+      "packets_received": 111,
+      "bytes_sent": 14243,
       "label": null
     },
     {
-      "ip": "2404:6800:4003:c11::84",
-      "packets_sent": 244,
-      "packets_received": 147,
-      "bytes_sent": 201375,
+      "ip": "2a04:4e42:fea::223",
+      "packets_sent": 61,
+      "packets_received": 31,
+      "bytes_sent": 48276,
       "label": null
     },
     {
-      "ip": "2404:6800:4007:83a::2001",
-      "packets_sent": 165,
-      "packets_received": 59,
-      "bytes_sent": 199422,
+      "ip": "2a04:4e42:fe7::223",
+      "packets_sent": 52,
+      "packets_received": 25,
+      "bytes_sent": 47466,
       "label": null
+    },
+    {
+      "ip": "2001:4860:4845:400::",
+      "packets_sent": 41,
+      "packets_received": 27,
+      "bytes_sent": 24502,
+      "label": null
+    },
+    {
+      "ip": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "packets_sent": 41,
+      "packets_received": 48,
+      "bytes_sent": 16993,
+      "label": null
+    },
+    {
+      "ip": "2404:6800:4000:1025::5f",
+      "packets_sent": 34,
+      "packets_received": 22,
+      "bytes_sent": 8287,
+      "label": null
+    },
+    {
+      "ip": "2001:4860:4840:400::",
+      "packets_sent": 33,
+      "packets_received": 27,
+      "bytes_sent": 4077,
+      "label": null
+    },
+    {
+      "ip": "2001:4860:4847:400::",
+      "packets_sent": 33,
+      "packets_received": 23,
+      "bytes_sent": 11699,
+      "label": null
+    },
+    {
+      "ip": "64:ff9b::496:df61",
+      "packets_sent": 32,
+      "packets_received": 34,
+      "bytes_sent": 3212,
+      "label": null
+    },
+    {
+      "ip": "2404:6800:4007:836::200e",
+      "packets_sent": 32,
+      "packets_received": 24,
+      "bytes_sent": 32803,
+      "label": null
+    },
+    {
+      "ip": "2404:6800:4007:83d::200e",
+      "packets_sent": 32,
+      "packets_received": 27,
+      "bytes_sent": 13150,
+      "label": null
+    },
+    {
+      "ip": "10.212.85.108",
+      "packets_sent": 24,
+      "packets_received": 17,
+      "bytes_sent": 3200,
+      "label": "laptop-3 (Member 3 (Jayant))"
     }
   ],
   "conversations": [
     {
-      "a": "2001:4860:482b:400::",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 4628
-    },
-    {
-      "a": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "b": "2600:140f:5e00:1ab::1aca",
-      "packets": 4153
-    },
-    {
-      "a": "2001:4860:482c:7700::",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 3855
-    },
-    {
-      "a": "2405:200:1630:b43::c",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 3157
-    },
-    {
-      "a": "2405:200:1630:b43::e",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 1900
-    },
-    {
-      "a": "2404:6800:4003:c1a::77",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 1711
-    },
-    {
-      "a": "2404:6800:4007:83e::200e",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 1077
-    },
-    {
-      "a": "2404:6800:4007:834::2003",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 946
+      "a": "2001:4860:4828:7700::",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 257
     },
     {
       "a": "10.212.85.119",
-      "b": "10.212.85.161",
-      "packets": 547
+      "b": "10.212.85.37",
+      "packets": 220
     },
     {
-      "a": "2001:df2:e500:ed1a::1",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 457
-    },
-    {
-      "a": "2001:4860:482d:400::",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 447
-    },
-    {
-      "a": "2404:6800:4003:c11::84",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 391
-    },
-    {
-      "a": "2001:4860:4843:400::",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 267
-    },
-    {
-      "a": "2404:6800:4007:83a::2001",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 224
-    },
-    {
-      "a": "2404:6800:4007:838::200e",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 218
-    },
-    {
-      "a": "2404:6800:4007:833::2003",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 212
-    },
-    {
-      "a": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
+      "a": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
       "b": "2a04:4e42:fea::223",
-      "packets": 192
+      "packets": 92
     },
     {
-      "a": "2404:6800:4007:832::200a",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 190
+      "a": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "b": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "packets": 89
+    },
+    {
+      "a": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "b": "2a04:4e42:fe7::223",
+      "packets": 77
+    },
+    {
+      "a": "2001:4860:4845:400::",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 68
+    },
+    {
+      "a": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "b": "64:ff9b::496:df61",
+      "packets": 66
+    },
+    {
+      "a": "2001:4860:4840:400::",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 60
+    },
+    {
+      "a": "2404:6800:4007:83d::200e",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 59
+    },
+    {
+      "a": "2404:6800:4000:1025::5f",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 56
+    },
+    {
+      "a": "2404:6800:4007:836::200e",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 56
+    },
+    {
+      "a": "2001:4860:4847:400::",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 56
+    },
+    {
+      "a": "2001:4860:4829:400::",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 38
     },
     {
       "a": "2001:4860:4844:400::",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 169
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 36
     },
     {
-      "a": "2404:6800:4007:81b::2001",
-      "b": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "packets": 153
+      "a": "10.212.85.37",
+      "b": "4.150.223.105",
+      "packets": 35
+    },
+    {
+      "a": "10.212.85.108",
+      "b": "10.212.85.37",
+      "packets": 34
+    },
+    {
+      "a": "2404:6800:4007:83a::200a",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 34
+    },
+    {
+      "a": "2404:6800:4007:83b::200e",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 32
+    },
+    {
+      "a": "10.212.85.161",
+      "b": "10.212.85.37",
+      "packets": 29
+    },
+    {
+      "a": "2404:6800:4007:831::2003",
+      "b": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "packets": 29
     }
   ],
   "tcp_handshakes": [
     {
-      "stream": "4",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:804::200e",
-      "server_port": "443",
-      "client_port": "8669",
-      "syn": {
-        "frame": 56,
-        "timestamp": "2026-08-12T09:52:30.336981"
-      },
-      "syn_ack": {
-        "frame": 57,
-        "timestamp": "2026-08-12T09:52:30.375947"
-      },
-      "ack": {
-        "frame": 59,
-        "timestamp": "2026-08-12T09:52:30.376035"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "3",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:834::200e",
-      "server_port": "443",
-      "client_port": "16855",
-      "syn": {
-        "frame": 55,
-        "timestamp": "2026-08-12T09:52:30.336760"
-      },
-      "syn_ack": {
-        "frame": 58,
-        "timestamp": "2026-08-12T09:52:30.375948"
-      },
-      "ack": {
-        "frame": 60,
-        "timestamp": "2026-08-12T09:52:30.376065"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "5",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:834::200e",
-      "server_port": "443",
-      "client_port": "47470",
-      "syn": {
-        "frame": 141,
-        "timestamp": "2026-08-12T09:52:31.861167"
-      },
-      "syn_ack": {
-        "frame": 156,
-        "timestamp": "2026-08-12T09:52:31.891262"
-      },
-      "ack": {
-        "frame": 158,
-        "timestamp": "2026-08-12T09:52:31.891359"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "6",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2001:4860:4844:400::",
-      "server_port": "443",
-      "client_port": "36432",
-      "syn": {
-        "frame": 212,
-        "timestamp": "2026-08-12T09:52:31.983048"
-      },
-      "syn_ack": {
-        "frame": 245,
-        "timestamp": "2026-08-12T09:52:32.026248"
-      },
-      "ack": {
-        "frame": 247,
-        "timestamp": "2026-08-12T09:52:32.026346"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "7",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:81b::2001",
-      "server_port": "443",
-      "client_port": "5372",
-      "syn": {
-        "frame": 635,
-        "timestamp": "2026-08-12T09:52:32.571119"
-      },
-      "syn_ack": {
-        "frame": 655,
-        "timestamp": "2026-08-12T09:52:32.614564"
-      },
-      "ack": {
-        "frame": 659,
-        "timestamp": "2026-08-12T09:52:32.614675"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "8",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:838::200e",
-      "server_port": "443",
-      "client_port": "17928",
-      "syn": {
-        "frame": 793,
-        "timestamp": "2026-08-12T09:52:33.143332"
-      },
-      "syn_ack": {
-        "frame": 802,
-        "timestamp": "2026-08-12T09:52:33.178868"
-      },
-      "ack": {
-        "frame": 803,
-        "timestamp": "2026-08-12T09:52:33.178922"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "10",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "server_port": "53",
-      "client_port": "50732",
-      "syn": {
-        "frame": 1023,
-        "timestamp": "2026-08-12T09:52:33.971316"
-      },
-      "syn_ack": {
-        "frame": 1024,
-        "timestamp": "2026-08-12T09:52:33.975947"
-      },
-      "ack": {
-        "frame": 1025,
-        "timestamp": "2026-08-12T09:52:33.976030"
-      },
-      "service": "dns"
-    },
-    {
-      "stream": "9",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4003:c1a::bc",
-      "server_port": "5228",
-      "client_port": "3688",
-      "syn": {
-        "frame": 1020,
-        "timestamp": "2026-08-12T09:52:33.970066"
-      },
-      "syn_ack": {
-        "frame": 1043,
-        "timestamp": "2026-08-12T09:52:34.043760"
-      },
-      "ack": {
-        "frame": 1044,
-        "timestamp": "2026-08-12T09:52:34.043827"
-      },
-      "service": "port-5228"
-    },
-    {
-      "stream": "11",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "64:ff9b::8efb:dece",
-      "server_port": "443",
-      "client_port": "45184",
-      "syn": {
-        "frame": 1145,
-        "timestamp": "2026-08-12T09:52:34.254544"
-      },
-      "syn_ack": {
-        "frame": 1163,
-        "timestamp": "2026-08-12T09:52:34.301666"
-      },
-      "ack": {
-        "frame": 1164,
-        "timestamp": "2026-08-12T09:52:34.301768"
-      },
-      "service": "https"
-    },
-    {
       "stream": "12",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2001:4860:4840:400::",
+      "client": "10.212.85.37",
+      "server": "4.150.223.105",
       "server_port": "443",
-      "client_port": "57265",
+      "client_port": "52627",
       "syn": {
-        "frame": 1489,
-        "timestamp": "2026-08-12T09:52:34.686467"
+        "frame": 44,
+        "timestamp": "2026-08-12T10:44:12.973021"
       },
       "syn_ack": {
-        "frame": 1516,
-        "timestamp": "2026-08-12T09:52:34.727978"
+        "frame": 53,
+        "timestamp": "2026-08-12T10:44:13.392869"
       },
       "ack": {
-        "frame": 1517,
-        "timestamp": "2026-08-12T09:52:34.728038"
+        "frame": 54,
+        "timestamp": "2026-08-12T10:44:13.393023"
       },
       "service": "https"
     },
     {
-      "stream": "13",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2600:140f:5e00:189::1aca",
-      "server_port": "443",
-      "client_port": "41600",
+      "stream": "15",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2606:4700:9c65:73d9:4edd:43d:ef6b:ff98",
+      "server_port": "80",
+      "client_port": "52628",
       "syn": {
-        "frame": 2024,
-        "timestamp": "2026-08-12T09:52:35.189383"
+        "frame": 175,
+        "timestamp": "2026-08-12T10:44:21.496798"
       },
       "syn_ack": {
-        "frame": 2157,
-        "timestamp": "2026-08-12T09:52:35.239882"
+        "frame": 177,
+        "timestamp": "2026-08-12T10:44:21.727252"
       },
       "ack": {
-        "frame": 2158,
-        "timestamp": "2026-08-12T09:52:35.239941"
+        "frame": 178,
+        "timestamp": "2026-08-12T10:44:21.727429"
       },
-      "service": "https"
+      "service": "http"
     },
     {
-      "stream": "14",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2600:140f:5e00:1ab::1aca",
+      "stream": "18",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2a04:4e42:fe7::223",
       "server_port": "443",
-      "client_port": "57205",
+      "client_port": "52631",
       "syn": {
-        "frame": 2513,
-        "timestamp": "2026-08-12T09:52:35.405138"
+        "frame": 197,
+        "timestamp": "2026-08-12T10:44:22.241875"
       },
       "syn_ack": {
-        "frame": 2519,
-        "timestamp": "2026-08-12T09:52:35.435538"
+        "frame": 198,
+        "timestamp": "2026-08-12T10:44:22.405293"
       },
       "ack": {
-        "frame": 2520,
-        "timestamp": "2026-08-12T09:52:35.435914"
+        "frame": 200,
+        "timestamp": "2026-08-12T10:44:22.405552"
       },
       "service": "https"
     },
     {
       "stream": "17",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:81f::200e",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2620:100:6031:17::a27d:5111",
       "server_port": "443",
-      "client_port": "11486",
+      "client_port": "52630",
       "syn": {
-        "frame": 3158,
-        "timestamp": "2026-08-12T09:52:35.928063"
+        "frame": 196,
+        "timestamp": "2026-08-12T10:44:22.212427"
       },
       "syn_ack": {
-        "frame": 3240,
-        "timestamp": "2026-08-12T09:52:35.999532"
+        "frame": 199,
+        "timestamp": "2026-08-12T10:44:22.405294"
       },
       "ack": {
-        "frame": 3242,
-        "timestamp": "2026-08-12T09:52:35.999599"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "18",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:80b::200e",
-      "server_port": "443",
-      "client_port": "32557",
-      "syn": {
-        "frame": 3166,
-        "timestamp": "2026-08-12T09:52:35.935588"
-      },
-      "syn_ack": {
-        "frame": 3241,
-        "timestamp": "2026-08-12T09:52:35.999532"
-      },
-      "ack": {
-        "frame": 3243,
-        "timestamp": "2026-08-12T09:52:35.999634"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "19",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2606:4700:9c65:73d9:16dd:43c:ef6b:ff98",
-      "server_port": "80",
-      "client_port": "32558",
-      "syn": {
-        "frame": 3514,
-        "timestamp": "2026-08-12T09:52:36.283226"
-      },
-      "syn_ack": {
-        "frame": 3585,
-        "timestamp": "2026-08-12T09:52:36.449083"
-      },
-      "ack": {
-        "frame": 3586,
-        "timestamp": "2026-08-12T09:52:36.449437"
-      },
-      "service": "http"
-    },
-    {
-      "stream": "21",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2a04:4e42:fea::223",
-      "server_port": "443",
-      "client_port": "57645",
-      "syn": {
-        "frame": 3800,
-        "timestamp": "2026-08-12T09:52:36.769075"
-      },
-      "syn_ack": {
-        "frame": 3851,
-        "timestamp": "2026-08-12T09:52:36.815927"
-      },
-      "ack": {
-        "frame": 3852,
-        "timestamp": "2026-08-12T09:52:36.816022"
+        "frame": 201,
+        "timestamp": "2026-08-12T10:44:22.405632"
       },
       "service": "https"
     },
     {
       "stream": "20",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4003:c00::77",
-      "server_port": "443",
-      "client_port": "57644",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2606:4700:9c65:73d9:4edd:43d:ef6b:ff98",
+      "server_port": "80",
+      "client_port": "52632",
       "syn": {
-        "frame": 3755,
-        "timestamp": "2026-08-12T09:52:36.731403"
+        "frame": 469,
+        "timestamp": "2026-08-12T10:44:40.730148"
       },
       "syn_ack": {
-        "frame": 3934,
-        "timestamp": "2026-08-12T09:52:36.854016"
+        "frame": 471,
+        "timestamp": "2026-08-12T10:44:40.946634"
       },
       "ack": {
-        "frame": 3937,
-        "timestamp": "2026-08-12T09:52:36.854093"
+        "frame": 472,
+        "timestamp": "2026-08-12T10:44:40.946932"
       },
-      "service": "https"
+      "service": "http"
     },
     {
       "stream": "22",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "64:ff9b::1108:835b",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2a04:4e42:fe7::223",
       "server_port": "443",
-      "client_port": "61733",
+      "client_port": "52634",
       "syn": {
-        "frame": 4945,
-        "timestamp": "2026-08-12T09:52:37.403002"
+        "frame": 480,
+        "timestamp": "2026-08-12T10:44:41.340127"
       },
       "syn_ack": {
-        "frame": 4970,
-        "timestamp": "2026-08-12T09:52:37.474498"
+        "frame": 481,
+        "timestamp": "2026-08-12T10:44:41.457686"
       },
       "ack": {
-        "frame": 4971,
-        "timestamp": "2026-08-12T09:52:37.474561"
+        "frame": 482,
+        "timestamp": "2026-08-12T10:44:41.457877"
       },
       "service": "https"
     },
     {
-      "stream": "23",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2001:4860:4844:400::",
-      "server_port": "443",
-      "client_port": "38332",
+      "stream": "24",
+      "client": "10.212.85.37",
+      "server": "104.20.23.154",
+      "server_port": "80",
+      "client_port": "52636",
       "syn": {
-        "frame": 5267,
-        "timestamp": "2026-08-12T09:52:37.599250"
+        "frame": 908,
+        "timestamp": "2026-08-12T10:45:00.278563"
       },
       "syn_ack": {
-        "frame": 5269,
-        "timestamp": "2026-08-12T09:52:37.629653"
+        "frame": 909,
+        "timestamp": "2026-08-12T10:45:00.325961"
       },
       "ack": {
-        "frame": 5270,
-        "timestamp": "2026-08-12T09:52:37.629744"
+        "frame": 910,
+        "timestamp": "2026-08-12T10:45:00.326137"
+      },
+      "service": "http"
+    },
+    {
+      "stream": "25",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2a04:4e42:fea::223",
+      "server_port": "443",
+      "client_port": "52637",
+      "syn": {
+        "frame": 921,
+        "timestamp": "2026-08-12T10:45:00.518644"
+      },
+      "syn_ack": {
+        "frame": 922,
+        "timestamp": "2026-08-12T10:45:00.547805"
+      },
+      "ack": {
+        "frame": 923,
+        "timestamp": "2026-08-12T10:45:00.547964"
       },
       "service": "https"
     },
     {
       "stream": "27",
-      "client": "10.212.85.161",
-      "server": "10.212.85.185",
-      "server_port": "7680",
-      "client_port": "38333",
-      "syn": {
-        "frame": 7253,
-        "timestamp": "2026-08-12T09:52:41.184472"
-      },
-      "syn_ack": {
-        "frame": 7254,
-        "timestamp": "2026-08-12T09:52:41.197849"
-      },
-      "ack": {
-        "frame": 7256,
-        "timestamp": "2026-08-12T09:52:41.197960"
-      },
-      "service": "port-7680"
-    },
-    {
-      "stream": "28",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2001:4860:4844:400::",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2404:6800:4007:83d::200e",
       "server_port": "443",
-      "client_port": "58485",
+      "client_port": "45421",
       "syn": {
-        "frame": 7273,
-        "timestamp": "2026-08-12T09:52:41.639475"
+        "frame": 1223,
+        "timestamp": "2026-08-12T10:45:10.135845"
       },
       "syn_ack": {
-        "frame": 7275,
-        "timestamp": "2026-08-12T09:52:41.702800"
+        "frame": 1226,
+        "timestamp": "2026-08-12T10:45:10.226583"
       },
       "ack": {
-        "frame": 7276,
-        "timestamp": "2026-08-12T09:52:41.702900"
+        "frame": 1229,
+        "timestamp": "2026-08-12T10:45:10.226736"
       },
       "service": "https"
     },
     {
-      "stream": "30",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:836::200e",
-      "server_port": "443",
-      "client_port": "3845",
+      "stream": "26",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "server_port": "80",
+      "client_port": "52447",
       "syn": {
-        "frame": 8617,
-        "timestamp": "2026-08-12T09:52:45.666169"
+        "frame": 1320,
+        "timestamp": "2026-08-12T10:45:13.141934"
       },
       "syn_ack": {
-        "frame": 8618,
-        "timestamp": "2026-08-12T09:52:45.695191"
+        "frame": 1333,
+        "timestamp": "2026-08-12T10:45:13.506368"
       },
       "ack": {
-        "frame": 8619,
-        "timestamp": "2026-08-12T09:52:45.695265"
+        "frame": 1335,
+        "timestamp": "2026-08-12T10:45:13.506693"
       },
-      "service": "https"
-    },
-    {
-      "stream": "31",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:83e::200e",
-      "server_port": "443",
-      "client_port": "15774",
-      "syn": {
-        "frame": 8671,
-        "timestamp": "2026-08-12T09:52:46.059928"
-      },
-      "syn_ack": {
-        "frame": 8689,
-        "timestamp": "2026-08-12T09:52:46.115293"
-      },
-      "ack": {
-        "frame": 8690,
-        "timestamp": "2026-08-12T09:52:46.115407"
-      },
-      "service": "https"
-    },
-    {
-      "stream": "32",
-      "client": "2409:40f4:2047:85ef:58a9:97ed:dc80:8652",
-      "server": "2404:6800:4007:815::200a",
-      "server_port": "443",
-      "client_port": "31164",
-      "syn": {
-        "frame": 8930,
-        "timestamp": "2026-08-12T09:52:47.141843"
-      },
-      "syn_ack": {
-        "frame": 8940,
-        "timestamp": "2026-08-12T09:52:47.214228"
-      },
-      "ack": {
-        "frame": 8941,
-        "timestamp": "2026-08-12T09:52:47.214304"
-      },
-      "service": "https"
+      "service": "http"
     },
     {
       "stream": "33",
-      "client": "10.212.85.185",
-      "server": "10.212.85.161",
-      "server_port": "7680",
-      "client_port": "39572",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2001:4860:4844:400::",
+      "server_port": "443",
+      "client_port": "54282",
       "syn": {
-        "frame": 9048,
-        "timestamp": "2026-08-12T09:52:47.784047"
+        "frame": 1379,
+        "timestamp": "2026-08-12T10:45:14.683781"
       },
       "syn_ack": {
-        "frame": 9049,
-        "timestamp": "2026-08-12T09:52:47.784184"
+        "frame": 1391,
+        "timestamp": "2026-08-12T10:45:14.784142"
       },
       "ack": {
-        "frame": 9051,
-        "timestamp": "2026-08-12T09:52:47.792857"
+        "frame": 1398,
+        "timestamp": "2026-08-12T10:45:14.784275"
       },
-      "service": "port-7680"
+      "service": "https"
+    },
+    {
+      "stream": "38",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "server_port": "443",
+      "client_port": "13748",
+      "syn": {
+        "frame": 1443,
+        "timestamp": "2026-08-12T10:45:15.857703"
+      },
+      "syn_ack": {
+        "frame": 1460,
+        "timestamp": "2026-08-12T10:45:16.166073"
+      },
+      "ack": {
+        "frame": 1463,
+        "timestamp": "2026-08-12T10:45:16.166185"
+      },
+      "service": "https"
+    },
+    {
+      "stream": "39",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "server_port": "443",
+      "client_port": "10226",
+      "syn": {
+        "frame": 1444,
+        "timestamp": "2026-08-12T10:45:16.116373"
+      },
+      "syn_ack": {
+        "frame": 1475,
+        "timestamp": "2026-08-12T10:45:16.485117"
+      },
+      "ack": {
+        "frame": 1476,
+        "timestamp": "2026-08-12T10:45:16.485632"
+      },
+      "service": "https"
+    },
+    {
+      "stream": "35",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "server_port": "80",
+      "client_port": "20428",
+      "syn": {
+        "frame": 1468,
+        "timestamp": "2026-08-12T10:45:16.179493"
+      },
+      "syn_ack": {
+        "frame": 1479,
+        "timestamp": "2026-08-12T10:45:16.575814"
+      },
+      "ack": {
+        "frame": 1491,
+        "timestamp": "2026-08-12T10:45:16.576047"
+      },
+      "service": "http"
+    },
+    {
+      "stream": "29",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2600:1f13:37c:1400:ba21:7165:5fc7:736e",
+      "server_port": "80",
+      "client_port": "40567",
+      "syn": {
+        "frame": 1544,
+        "timestamp": "2026-08-12T10:45:17.280761"
+      },
+      "syn_ack": {
+        "frame": 1554,
+        "timestamp": "2026-08-12T10:45:17.606162"
+      },
+      "ack": {
+        "frame": 1555,
+        "timestamp": "2026-08-12T10:45:17.606308"
+      },
+      "service": "http"
+    },
+    {
+      "stream": "42",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2606:4700:9c65:73d9:4fdd:43d:ef6b:ff98",
+      "server_port": "80",
+      "client_port": "34234",
+      "syn": {
+        "frame": 1587,
+        "timestamp": "2026-08-12T10:45:18.727138"
+      },
+      "syn_ack": {
+        "frame": 1588,
+        "timestamp": "2026-08-12T10:45:18.892533"
+      },
+      "ack": {
+        "frame": 1589,
+        "timestamp": "2026-08-12T10:45:18.892687"
+      },
+      "service": "http"
+    },
+    {
+      "stream": "43",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2a04:4e42:fea::223",
+      "server_port": "443",
+      "client_port": "34235",
+      "syn": {
+        "frame": 1603,
+        "timestamp": "2026-08-12T10:45:20.003664"
+      },
+      "syn_ack": {
+        "frame": 1604,
+        "timestamp": "2026-08-12T10:45:20.071279"
+      },
+      "ack": {
+        "frame": 1606,
+        "timestamp": "2026-08-12T10:45:20.071368"
+      },
+      "service": "https"
     }
   ],
-  "tcp_handshakes_total": 60,
-  "tcp_handshakes_incomplete": 3,
+  "tcp_handshakes_total": 17,
+  "tcp_handshakes_incomplete": 13,
   "dns_lookups": [
     {
-      "frame": 7,
-      "timestamp": "2026-08-12T09:52:28.777086",
-      "query": "www.bing.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 8,
-      "timestamp": "2026-08-12T09:52:28.777410",
-      "query": "www.bing.com",
-      "type": "28",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 9,
-      "timestamp": "2026-08-12T09:52:28.777633",
-      "query": "www.bing.com",
+      "frame": 16,
+      "timestamp": "2026-08-12T10:44:10.218796",
+      "query": "v10.events.data.microsoft.com",
       "type": "1",
       "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 10,
-      "timestamp": "2026-08-12T09:52:28.819400",
-      "query": "www.bing.com",
-      "type": "1",
-      "direction": "query",
-      "client": "10.212.85.119",
-      "server": "10.212.85.161",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 11,
-      "timestamp": "2026-08-12T09:52:28.819401",
-      "query": "www.bing.com",
+      "frame": 17,
+      "timestamp": "2026-08-12T10:44:10.219635",
+      "query": "v10.events.data.microsoft.com",
       "type": "28",
       "direction": "query",
-      "client": "10.212.85.119",
-      "server": "10.212.85.161",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 12,
-      "timestamp": "2026-08-12T09:52:28.819402",
-      "query": "www.bing.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.119",
-      "server": "10.212.85.161",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 43,
-      "timestamp": "2026-08-12T09:52:30.296547",
-      "query": "update.googleapis.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 44,
-      "timestamp": "2026-08-12T09:52:30.296831",
-      "query": "update.googleapis.com",
+      "frame": 23,
+      "timestamp": "2026-08-12T10:44:10.477845",
+      "query": "v10.events.data.microsoft.com",
       "type": "28",
       "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2409:40f4:2047:85ef::b9",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 45,
-      "timestamp": "2026-08-12T09:52:30.296994",
-      "query": "update.googleapis.com",
+      "frame": 24,
+      "timestamp": "2026-08-12T10:44:10.477980",
+      "query": "v10.events.data.microsoft.com",
       "type": "1",
       "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
+      "client": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "server": "2409:40f4:2047:85ef::b9",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 46,
-      "timestamp": "2026-08-12T09:52:30.297569",
-      "query": "clientservices.googleapis.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 47,
-      "timestamp": "2026-08-12T09:52:30.297738",
-      "query": "clientservices.googleapis.com",
+      "frame": 26,
+      "timestamp": "2026-08-12T10:44:11.490896",
+      "query": "v10.events.data.microsoft.com",
       "type": "28",
       "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 48,
-      "timestamp": "2026-08-12T09:52:30.297908",
-      "query": "clientservices.googleapis.com",
+      "frame": 27,
+      "timestamp": "2026-08-12T10:44:11.490933",
+      "query": "v10.events.data.microsoft.com",
       "type": "1",
       "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 49,
-      "timestamp": "2026-08-12T09:52:30.335003",
-      "query": "update.googleapis.com",
+      "frame": 34,
+      "timestamp": "2026-08-12T10:44:12.657912",
+      "query": "v10.events.data.microsoft.com",
       "type": "28",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 50,
-      "timestamp": "2026-08-12T09:52:30.335004",
-      "query": "update.googleapis.com",
+      "frame": 35,
+      "timestamp": "2026-08-12T10:44:12.657912",
+      "query": "v10.events.data.microsoft.com",
       "type": "1",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 51,
-      "timestamp": "2026-08-12T09:52:30.335005",
-      "query": "update.googleapis.com",
-      "type": "65",
+      "frame": 37,
+      "timestamp": "2026-08-12T10:44:12.876509",
+      "query": "v10.events.data.microsoft.com",
+      "type": "28",
+      "direction": "query",
+      "client": "2409:40f4:2047:85ef::b9",
+      "server": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 38,
+      "timestamp": "2026-08-12T10:44:12.876511",
+      "query": "v10.events.data.microsoft.com",
+      "type": "1",
+      "direction": "query",
+      "client": "2409:40f4:2047:85ef::b9",
+      "server": "2409:40f4:2047:85ef:8cf2:412c:c244:56b8",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 142,
+      "timestamp": "2026-08-12T10:44:20.407434",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
+      "direction": "query",
+      "client": "10.212.85.37",
+      "server": "10.212.85.119",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 146,
+      "timestamp": "2026-08-12T10:44:20.474727",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 52,
-      "timestamp": "2026-08-12T09:52:30.335005",
-      "query": "clientservices.googleapis.com",
+      "frame": 147,
+      "timestamp": "2026-08-12T10:44:20.475939",
+      "query": "example.com",
+      "type": "1",
+      "direction": "query",
+      "client": "10.212.85.37",
+      "server": "10.212.85.119",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 148,
+      "timestamp": "2026-08-12T10:44:20.563214",
+      "query": "example.com",
+      "type": "1",
+      "direction": "query",
+      "client": "10.212.85.119",
+      "server": "10.212.85.37",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 149,
+      "timestamp": "2026-08-12T10:44:20.568696",
+      "query": "example.com",
+      "type": "28",
+      "direction": "query",
+      "client": "10.212.85.37",
+      "server": "10.212.85.119",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 150,
+      "timestamp": "2026-08-12T10:44:20.664814",
+      "query": "example.com",
       "type": "28",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 53,
-      "timestamp": "2026-08-12T09:52:30.335006",
-      "query": "clientservices.googleapis.com",
-      "type": "65",
+      "frame": 151,
+      "timestamp": "2026-08-12T10:44:20.706417",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
+      "direction": "query",
+      "client": "10.212.85.37",
+      "server": "10.212.85.119",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 153,
+      "timestamp": "2026-08-12T10:44:20.716516",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 54,
-      "timestamp": "2026-08-12T09:52:30.335006",
-      "query": "clientservices.googleapis.com",
+      "frame": 154,
+      "timestamp": "2026-08-12T10:44:20.717673",
+      "query": "wikipedia.org",
+      "type": "1",
+      "direction": "query",
+      "client": "10.212.85.37",
+      "server": "10.212.85.119",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 158,
+      "timestamp": "2026-08-12T10:44:20.972626",
+      "query": "wikipedia.org",
       "type": "1",
       "direction": "query",
       "client": "10.212.85.119",
-      "server": "10.212.85.161",
+      "server": "10.212.85.37",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 121,
-      "timestamp": "2026-08-12T09:52:31.822560",
-      "query": "www.google.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 122,
-      "timestamp": "2026-08-12T09:52:31.822959",
-      "query": "www.google.com",
+      "frame": 161,
+      "timestamp": "2026-08-12T10:44:20.979273",
+      "query": "wikipedia.org",
       "type": "28",
       "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 123,
-      "timestamp": "2026-08-12T09:52:31.823657",
-      "query": "www.google.com",
-      "type": "1",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 124,
-      "timestamp": "2026-08-12T09:52:31.831085",
-      "query": "oauthaccountmanager.googleapis.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 125,
-      "timestamp": "2026-08-12T09:52:31.831387",
-      "query": "oauthaccountmanager.googleapis.com",
+      "frame": 163,
+      "timestamp": "2026-08-12T10:44:21.075184",
+      "query": "wikipedia.org",
       "type": "28",
       "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.119",
+      "server": "10.212.85.37",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 164,
+      "timestamp": "2026-08-12T10:44:21.115643",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
+      "direction": "query",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     },
     {
-      "frame": 126,
-      "timestamp": "2026-08-12T09:52:31.831545",
-      "query": "oauthaccountmanager.googleapis.com",
+      "frame": 165,
+      "timestamp": "2026-08-12T10:44:21.125330",
+      "query": "119.85.212.10.in-addr.arpa",
+      "type": "12",
+      "direction": "query",
+      "client": "10.212.85.119",
+      "server": "10.212.85.37",
+      "answers": [],
+      "transport": "UDP/53 (unencrypted)"
+    },
+    {
+      "frame": 166,
+      "timestamp": "2026-08-12T10:44:21.126508",
+      "query": "python.org",
       "type": "1",
       "direction": "query",
-      "client": "10.212.85.161",
-      "server": "10.212.85.119",
-      "answers": [],
-      "transport": "UDP/53 (unencrypted)"
-    },
-    {
-      "frame": 127,
-      "timestamp": "2026-08-12T09:52:31.831987",
-      "query": "accounts.google.com",
-      "type": "65",
-      "direction": "query",
-      "client": "10.212.85.161",
+      "client": "10.212.85.37",
       "server": "10.212.85.119",
       "answers": [],
       "transport": "UDP/53 (unencrypted)"
     }
   ],
   "dns_responses": [],
-  "dns_lookups_total": 556,
+  "dns_lookups_total": 212,
   "scope": "team-owned laptops on the team's own network"
 }
